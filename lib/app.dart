@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/admin_page.dart';
 import 'package:flutter_application_1/pages/categorias_page.dart';
 import 'package:flutter_application_1/pages/editCategory_page.dart';
+import 'package:flutter_application_1/pages/editPlato_page.dart';
 import 'package:flutter_application_1/pages/pedidosPendientes_page.dart';
 import 'package:flutter_application_1/pages/platos_page.dart';
 import 'pages/Pedidoscronologicos_page.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         'platos': (BuildContext context) => Platos(),
         'historialPedidos': (BuildContext context) => Categorias(),
         'pedidosctronologicos': (BuildContext context) => PedidosCronologicos(),
-        'editCategory': (BuildContext context) => EditCategory()
+        'editCategory': (BuildContext context) => EditCategory(),
+        'editPlato': (BuildContext context) => EditPlato()
       },
     );
   }

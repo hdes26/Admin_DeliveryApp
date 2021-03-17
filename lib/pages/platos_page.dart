@@ -23,31 +23,31 @@ class _PlatosState extends State<Platos> {
           child: ListView(
             padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             children: [
-              _platos("Perro caliente", context),
+              _platos("Perrascamelo", context),
               Divider(
                 color: Colors.black,
                 thickness: 1.1,
                 height: 27,
               ),
-              _platos("Salchipapa", context),
+              _platos("Perro gemelo", context),
               Divider(
                 color: Colors.black,
                 height: 27,
                 thickness: 1.1,
               ),
-              _platos("pizza", context),
+              _platos("Perro suizo", context),
               Divider(
                 color: Colors.black,
                 height: 27,
                 thickness: 1.1,
               ),
-              _platos("hamburguesas", context),
+              _platos("perro secillo", context),
               Divider(
                 color: Colors.black,
                 height: 27,
                 thickness: 1.1,
               ),
-              _platos("bebidas", context),
+              _platos("hamburguesa de carne", context),
               Divider(
                 color: Colors.black,
                 height: 27,
@@ -63,7 +63,7 @@ Widget _platos(String text, BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(text, style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+      Text(text, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       Row(
         children: [
           InkWell(
@@ -73,7 +73,7 @@ Widget _platos(String text, BuildContext context) {
               color: Colors.yellow,
               child: Icon(Icons.edit, size: 40),
             ),
-            onTap: () => {Navigator.pushNamed(context, 'editCategory')},
+            onTap: () => {Navigator.pushNamed(context, 'editPlato')},
           ),
           SizedBox(
             width: 30,

@@ -63,7 +63,7 @@ Widget _category(String text, BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(text, style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+      Text(text, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       Row(
         children: [
           InkWell(
