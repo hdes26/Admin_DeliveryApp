@@ -22,17 +22,21 @@ class _EditCategoryState extends State<EditCategory> {
       body: Container(
         color: Colors.white,
         padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
-        child: Column(
-          children: [_formSearch()],
+        child: ListView(
+          children: [
+            _formCategory(),
+            _buttonSend(),
+          ],
         ),
       ),
     );
   }
 
-  Widget _formSearch() {
+  Widget _formCategory() {
     return Form(
       key: formKey,
       child: TextFormField(
+        autofocus: true,
         decoration: InputDecoration(
             hintText: "Categoria",
             labelStyle:
@@ -42,5 +46,20 @@ class _EditCategoryState extends State<EditCategory> {
             {Navigator.pushNamed(context, 'searchPlato')},
       ),
     );
+  }
+
+  Widget _buttonSend() {
+    // ignore: deprecated_member_use
+    return RaisedButton(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+        color: Colors.red,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(60),
+        ),
+        child: Text(
+          'Editar categoria',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        onPressed: () => {Navigator.pushNamed(context, 'loginVerificacion')});
   }
 }
