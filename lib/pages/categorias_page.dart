@@ -23,31 +23,31 @@ class _CategoriasState extends State<Categorias> {
           child: ListView(
             padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
             children: [
-              _category("Perro caliente"),
+              _category("Perro caliente", context),
               Divider(
                 color: Colors.black,
                 thickness: 1.1,
                 height: 27,
               ),
-              _category("Salchipapa"),
+              _category("Salchipapa", context),
               Divider(
                 color: Colors.black,
                 height: 27,
                 thickness: 1.1,
               ),
-              _category("pizza"),
+              _category("pizza", context),
               Divider(
                 color: Colors.black,
                 height: 27,
                 thickness: 1.1,
               ),
-              _category("hamburguesas"),
+              _category("hamburguesas", context),
               Divider(
                 color: Colors.black,
                 height: 27,
                 thickness: 1.1,
               ),
-              _category("bebidas"),
+              _category("bebidas", context),
               Divider(
                 color: Colors.black,
                 height: 27,
@@ -59,7 +59,7 @@ class _CategoriasState extends State<Categorias> {
   }
 }
 
-Widget _category(String text) {
+Widget _category(String text, BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -73,7 +73,7 @@ Widget _category(String text) {
               color: Colors.yellow,
               child: Icon(Icons.edit, size: 40),
             ),
-            onTap: () => {print("object1")},
+            onTap: () => {Navigator.pushNamed(context, 'editCategory')},
           ),
           SizedBox(
             width: 30,
