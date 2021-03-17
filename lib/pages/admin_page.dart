@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/pedidosPendientes_page.dart';
 
 class AdminPage extends StatefulWidget {
   @override
@@ -44,27 +45,30 @@ class _AdminPageState extends State<AdminPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(7.0),
-                    margin: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      color: Colors.white,
+                InkWell(
+                       child: Container(
+                      padding: EdgeInsets.all(7.0),
+                      margin: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Pedidos pendientes',
+                            style:
+                                TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () {},
+                          )
+                        ],
+                      ),
+                      
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Pedidos pendientes',
-                          style:
-                              TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                    
+                    onTap: ()=>{Navigator.pushNamed(context, 'pedidosPendientes')},
                   ),
                 
                 ],
@@ -76,28 +80,32 @@ class _AdminPageState extends State<AdminPage> {
                     Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(7.0),
-                    margin: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      color: Colors.white,
+                  InkWell(
+                                      child: Container(
+                      padding: EdgeInsets.all(7.0),
+                      margin: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Categorias                 ',
+                            style:
+                                TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () {},
+                          )
+                        ],
+                      ),
+                      
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Categorias                 ',
-                          style:
-                              TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                    
+                    onTap: ()=>{Navigator.pushNamed(context, 'categorias')},
                   ),
+                  
                 
                 ],
               ),
@@ -108,27 +116,30 @@ class _AdminPageState extends State<AdminPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(7.0),
-                    margin: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      color: Colors.white,
+                  InkWell(
+                                      child: Container(
+                      padding: EdgeInsets.all(7.0),
+                      margin: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Platos                         ',
+                            style:
+                                TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () {},
+                          )
+                        ],
+                      ),
+                      
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Platos                         ',
-                          style:
-                              TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                    
+                    onTap:()=>{Navigator.pushNamed(context, 'platos')}, 
                   ),
                 
                 ],
@@ -141,27 +152,30 @@ class _AdminPageState extends State<AdminPage> {
                Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(7.0),
-                    margin: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      color: Colors.white,
+                  InkWell(
+                                      child: Container(
+                      padding: EdgeInsets.all(7.0),
+                      margin: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Historial pedidos       ',
+                            style:
+                                TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () {},
+                          )
+                        ],
+                      ),
+                      
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Historial pedidos       ',
-                          style:
-                              TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.arrow_forward),
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                    
+                    onTap: ()=>{Navigator.pushNamed(context, 'historialPedidos')},
                   ),
                 
                 ],
