@@ -12,7 +12,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("xd"),
+        title: Text("Pedidos pendientes"),
       ),
     );
   }
