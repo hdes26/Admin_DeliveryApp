@@ -15,10 +15,16 @@ class MyApp extends StatelessWidget {
       routes: {
         'home': (BuildContext context) => AdminPage(),
         'pedidosPendientes': (BuildContext context) => PedidosPendientes(),
+<<<<<<< HEAD
         'categorias':(BuildContext context) => Categorias(),
         'platos':(BuildContext context) => Platos(),
         'historialPedidos':(BuildContext context) => Categorias(),
         'pedidosctronologicos':(BuildContext context) => PedidosCronologicos(),
+=======
+        'categorias': (BuildContext context) => Categorias(),
+        'platos': (BuildContext context) => Platos(),
+        'historialPedidos': (BuildContext context) => Categorias(),
+>>>>>>> c02e01bcefc945b7142660c6b601deebe3f2d301
       },
     );
   }
