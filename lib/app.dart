@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
     // TODO: implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
+      initialRoute: 'pedidosPendientes',
       routes: {
         'home': (BuildContext context) => AdminPage(),
         'pedidosPendientes': (BuildContext context) => PedidosPendientes(),
