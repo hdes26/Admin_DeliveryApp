@@ -46,7 +46,7 @@ class _AdminPageState extends State<AdminPage> {
                 children: [
                   Container(
                     padding: EdgeInsets.all(7.0),
-                    margin: EdgeInsets.all(30.0),
+                    margin: EdgeInsets.all(20.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20.0)),
                       color: Colors.white,
@@ -64,7 +64,106 @@ class _AdminPageState extends State<AdminPage> {
                         )
                       ],
                     ),
+                    
                   ),
+                
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+                    Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(7.0),
+                    margin: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Categorias                 ',
+                          style:
+                              TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                    
+                  ),
+                
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(7.0),
+                    margin: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Platos                         ',
+                          style:
+                              TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                    
+                  ),
+                
+                ],
+              ),
+            ],
+              
+          ),
+          Column(
+            children: [
+               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(7.0),
+                    margin: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Historial pedidos       ',
+                          style:
+                              TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                    
+                  ),
+                
                 ],
               ),
             ],
@@ -75,6 +174,7 @@ class _AdminPageState extends State<AdminPage> {
   }
 }
 
+ 
 /*Column(children: [  
       
       Row(        
