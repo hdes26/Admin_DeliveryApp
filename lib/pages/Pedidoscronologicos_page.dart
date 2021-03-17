@@ -23,11 +23,10 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
       ),
       body: Container(
         color: Colors.white,
+        padding: EdgeInsets.fromLTRB(20, 50, 20, 0),
         child: Column(
           children: [
-            Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0)),
 //Fila 1
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -84,15 +83,10 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
             ),
 
 //Linea
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.fromLTRB(20, 80, 20, 0)),
-                Container(
-                  width: 330,
-                  height: 2,
-                  color: Colors.black,
-                ),
-              ],
+            Divider(
+              thickness: 2,
+              color: Colors.black,
+              height: 50.0,
             ),
 
             Row(
