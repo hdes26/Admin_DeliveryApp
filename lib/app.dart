@@ -10,13 +10,13 @@ class MyApp extends StatelessWidget {
     // TODO: implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'pedidosPendientes',
+      initialRoute: 'home',
       routes: {
         'home': (BuildContext context) => AdminPage(),
         'pedidosPendientes': (BuildContext context) => PedidosPendientes(),
-        'categorias':(BuildContext context) => Categorias(),
-        'platos':(BuildContext context) => Platos(),
-        'historialPedidos':(BuildContext context) => Categorias(),
+        'categorias': (BuildContext context) => Categorias(),
+        'platos': (BuildContext context) => Platos(),
+        'historialPedidos': (BuildContext context) => Categorias(),
       },
     );
   }
