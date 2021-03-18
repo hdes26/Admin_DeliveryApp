@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PedidosCronologicos extends StatefulWidget {
   PedidosCronologicos({Key key}) : super(key: key);
@@ -91,19 +92,42 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
 
             Row(
               children: [
-                Text('1 Perro suizo'),
+                Text('1 Perro suizo', style: TextStyle(fontSize: 20.0),),
               ],
             ),
             Row(
               children: [
-                Text("1 Papas medianas"),
+                Text("1 Papas medianas",style: TextStyle(fontSize: 20.0),),
               ],
             ),
             Row(
               children: [
-                Text("2 hamburguesas de carne"),
+                Text("2 hamburguesas de carne",style: TextStyle(fontSize: 20.0),),
               ],
             ),
+                        Divider(
+              thickness: 2,
+              color: Colors.black,
+              height: 50.0,
+            ),
+            Row(
+              children: [
+                Text("Especificaciones", style: TextStyle(fontSize: 22.0),),
+              ],
+            ),
+            TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: 7,
+              maxLength: 2000,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Perro sin cebolla, hamburguesa sin pan xd',
+              ),
+            ),
+            Row(children: [
+              Text('Estado: ',style:TextStyle(fontSize: 17),),
+              DropdownButton(items: [],hint: Text('Preparado',),iconSize: 30,)
+            ],),
           ],
         ),
       ),
