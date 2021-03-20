@@ -112,62 +112,67 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
         break;
       default:
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              "pedido # " + numeroPedido,
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-            Expanded(child: SizedBox()),
-            Text(
-              "20.000",
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-            Expanded(child: SizedBox()),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _listPedido(),
-            Container(
-              decoration: BoxDecoration(
-                  color: colorBar, borderRadius: BorderRadius.circular(20.0)),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 10,
-                    height: 120,
-                  ),
-                ],
+    return InkWell(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                "pedido # " + numeroPedido,
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-            )
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "calle 38B # 1c-72",
-              style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "Estado: " + estado,
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            ),
-            SizedBox()
-          ],
-        )
-      ],
+              Expanded(child: SizedBox()),
+              Text(
+                "20.000",
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              ),
+              Expanded(child: SizedBox()),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _listPedido(),
+              Container(
+                decoration: BoxDecoration(
+                    color: colorBar, borderRadius: BorderRadius.circular(20.0)),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                      height: 120,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "calle 38B # 1c-72",
+                style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Estado: " + estado,
+                style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              SizedBox()
+            ],
+          )
+        ],
+      ),
+      onTap: () {
+        Navigator.pushNamed(context, 'pedidoscronologicos');
+      },
     );
   }
 

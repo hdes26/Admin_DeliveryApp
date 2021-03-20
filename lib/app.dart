@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         'pedidoscronologicos': (BuildContext context) => PedidosCronologicos(),
         'editCategory': (BuildContext context) => EditCategory(),
         'editPlato': (BuildContext context) => EditPlato(),
-        'login':(BuildContext context) => Login(),
-         'loginVerificacion': (BuildContext context) => LoginVerificacion(),
+        'login': (BuildContext context) => Login(),
+        'loginVerificacion': (BuildContext context) => LoginVerificacion(),
       },
     );
   }
