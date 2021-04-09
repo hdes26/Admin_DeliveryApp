@@ -7,6 +7,8 @@ import 'package:flutter_application_1/pages/login.dart';
 import 'package:flutter_application_1/pages/loginVerificacion.dart';
 import 'package:flutter_application_1/pages/pedidosPendientes_page.dart';
 import 'package:flutter_application_1/pages/platos_page.dart';
+import 'package:flutter_application_1/registroCategorias_page.dart';
+import 'package:flutter_application_1/registroPlato_page.dart';
 import 'pages/Pedidoscronologicos_page.dart';
 import 'pages/historialpedidos_page.dart';
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'login',
+      initialRoute: 'home',
       routes: {
         'home': (BuildContext context) => AdminPage(),
         'pedidosPendientes': (BuildContext context) => PedidosPendientes(),
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
         'editPlato': (BuildContext context) => EditPlato(),
         'login': (BuildContext context) => Login(),
         'loginVerificacion': (BuildContext context) => LoginVerificacion(),
+       'registroPlato': (BuildContext context) => RegistroPlato(),
+        'registroCategoria': (BuildContext context) => RegistroCategorias(),
       },
     );
   }

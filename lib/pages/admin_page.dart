@@ -169,8 +169,11 @@ class _AdminPageState extends State<AdminPage> {
                     onTap: () =>
                         {Navigator.pushNamed(context, 'historialPedidos')},
                   ),
+                  
                 ],
+                
               ),
+              
             ],
           ),
         ],

@@ -53,11 +53,23 @@ class _PlatosState extends State<Platos> {
                 height: 27,
                 thickness: 1.1,
               ),
+                      InkWell(
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Colors.grey,
+              child: Center(child: Text('REGISTRAR NUEVO PLATO'),),
+            ),
+            onTap: () => {Navigator.pushNamed(context, 'registroPlato')},
+          )
             ],
+            
           ),
+          
         ));
   }
 }
+
 
 Widget _platos(String text, BuildContext context) {
   return Row(
@@ -89,6 +101,10 @@ Widget _platos(String text, BuildContext context) {
           )
         ],
       ),
+      
     ],
+    
   );
+
+  
 }

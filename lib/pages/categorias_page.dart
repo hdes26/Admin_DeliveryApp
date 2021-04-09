@@ -53,7 +53,15 @@ class _CategoriasState extends State<Categorias> {
                 height: 27,
                 thickness: 1.1,
               ),
-            ],
+                                  InkWell(
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Colors.grey,
+              child: Center(child: Text('REGISTRAR NUEVO CATEGORIA'),),
+            ),
+            onTap: () => {Navigator.pushNamed(context, 'registroCategoria')},
+          )],
           ),
         ));
   }
