@@ -11,6 +11,7 @@ class _EditPlatoState extends State<EditPlato> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    Map parametros = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -24,7 +25,7 @@ class _EditPlatoState extends State<EditPlato> {
         padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
         child: ListView(
           children: [
-            _formEditPlato(),
+            _formEditPlato(parametros),
             _buttonSend(),
           ],
         ),
@@ -32,7 +33,7 @@ class _EditPlatoState extends State<EditPlato> {
     );
   }
 
-  Widget _formEditPlato() {
+  Widget _formEditPlato(Map platoParam) {
     return Container(
       child: Padding(
           padding: EdgeInsets.all(25),
@@ -43,27 +44,27 @@ class _EditPlatoState extends State<EditPlato> {
                 'Nombre de Categoria',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
+              _inputText(TextInputType.name, platoParam['nombre categoria']),
               Text(
                 'Nombre de Plato',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
+              _inputText(TextInputType.name, platoParam['nombre']),
               Text(
                 'Precio',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.number),
+              _inputText(TextInputType.number, platoParam['nombre'].toString()),
               Text(
                 'Ingredientes',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
+              _inputText(TextInputType.name, ''),
               Text(
                 'tiempo de preparacion',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
+              _inputText(TextInputType.name, ''),
             ],
           )),
     );
@@ -84,10 +85,10 @@ class _EditPlatoState extends State<EditPlato> {
         onPressed: () => {Navigator.pushNamed(context, 'loginVerificacion')});
   }
 
-  Widget _inputText(TextInputType type) {
+  Widget _inputText(TextInputType type, String text) {
     return TextField(
       keyboardType: type,
-      decoration: InputDecoration(),
+      decoration: InputDecoration(labelText: text),
     );
   }
 }
