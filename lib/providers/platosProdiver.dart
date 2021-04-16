@@ -12,7 +12,6 @@ class PlatosProvider {
     final response = await http.get(url, headers: {'x-access-token': token});
     final decodeData = json.decode(response.body);
     final platos = new Platos.fromJsonList(decodeData['platos']);
-
     return platos.platos;
   }
 
@@ -23,5 +22,17 @@ class PlatosProvider {
     final plato = new Plato.fromJsonMap(decodeData['plato']);
 
     return plato;
+  }
+
+  delete(String id, String token) async {
+    String endpoint = '/api/plato/remove/' + id;
+    print(endpoint);
+    final url = Uri.https(_url, endpoint);
+    print(url);
+    final response = await http.delete(url, headers: {'x-access-token': token});
+    print(response.body);
+    final decodeData = json.decode(response.body);
+    print(decodeData);
+    return decodeData['message'].toString();
   }
 }

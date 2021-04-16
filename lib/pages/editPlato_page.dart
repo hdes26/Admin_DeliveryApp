@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EditPlato extends StatefulWidget {
   EditPlato({Key key}) : super(key: key);
@@ -44,27 +45,34 @@ class _EditPlatoState extends State<EditPlato> {
                 'Nombre de Categoria',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name, platoParam['nombre categoria']),
+              _inputTextCategoria(platoParam['nombre categoria']["nombre"]),
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 'Nombre de Plato',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name, platoParam['nombre']),
+              _inputTextNombre(platoParam['nombre']),
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 'Precio',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.number, platoParam['nombre'].toString()),
+              _inputTextPrecio(platoParam['nombre'].toString()),
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 'Ingredientes',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name, ''),
-              Text(
-                'tiempo de preparacion',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              _inputTextIngredientes(platoParam['ingredientes']),
+              SizedBox(
+                height: 20,
               ),
-              _inputText(TextInputType.name, ''),
             ],
           )),
     );
@@ -82,12 +90,35 @@ class _EditPlatoState extends State<EditPlato> {
           'Editar Plato',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        onPressed: () => {Navigator.pushNamed(context, 'loginVerificacion')});
+        onPressed: () => {
+              // Navigator.pushNamed(context, 'loginVerificacion')
+            });
   }
 
-  Widget _inputText(TextInputType type, String text) {
+  Widget _inputTextCategoria(String text) {
     return TextField(
-      keyboardType: type,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(labelText: text),
+    );
+  }
+
+  Widget _inputTextNombre(String text) {
+    return TextField(
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(labelText: text),
+    );
+  }
+
+  Widget _inputTextPrecio(String text) {
+    return TextField(
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(labelText: text),
+    );
+  }
+
+  Widget _inputTextIngredientes(String text) {
+    return TextField(
+      keyboardType: TextInputType.text,
       decoration: InputDecoration(labelText: text),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/platoModel.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/providers/platosProdiver.dart';
+import 'package:flutter_application_1/utils/alertRemovePlato.dart';
 import 'package:provider/provider.dart';
 
 class Platos extends StatefulWidget {
@@ -12,6 +13,8 @@ class Platos extends StatefulWidget {
 }
 
 class _PlatosState extends State<Platos> {
+  List<dynamic> platosList = [];
+  bool remove;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,89 +79,102 @@ class _PlatosState extends State<Platos> {
           // ),
         ));
   }
-}
 
-Widget _platos(Plato data, BuildContext context) {
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _platos(Plato data, BuildContext context, int index) {
+    final infoProvider = Provider.of<InfoProvider>(context);
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      key: UniqueKey(),
+      background: Container(
+        color: Color(0x9DEB1515),
+      ),
+      onDismissed: (direccion) {
+        // PlatosProvider().delete(data.id, infoProvider.token);
+      },
+      child: Column(
         children: [
-          Text(data.nombre,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.yellow,
-                  child: Icon(Icons.edit, size: 40),
-                ),
-                onTap: () => {
-                  Navigator.pushNamed(context, 'editPlato', arguments: {
-                    "nombre": data.nombre,
-                    "precio": data.precio,
-                    "nombre categoria": data.categoryId
-                  })
-                },
+              Text(data.nombre,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Row(
+                children: [
+                  InkWell(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.yellow,
+                      child: Icon(Icons.edit, size: 40),
+                    ),
+                    onTap: () => {
+                      Navigator.pushNamed(context, 'editPlato', arguments: {
+                        "nombre": data.nombre,
+                        "precio": data.precio,
+                        "nombre categoria": data.categoryId,
+                        "ingredientes": data.ingredientes
+                      })
+                    },
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 30,
-              ),
-              InkWell(
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.red,
-                  child: Icon(Icons.delete_forever, size: 40),
-                ),
-                onTap: () => {print("object1")},
-              )
             ],
+          ),
+          Divider(
+            color: Colors.black,
+            height: 27,
+            thickness: 1.1,
           ),
         ],
       ),
-      Divider(
-        color: Colors.black,
-        height: 27,
-        thickness: 1.1,
-      ),
-    ],
-  );
-}
+    );
+  }
 
-Widget _builderPlatos(BuildContext context) {
-  final infoProvider = Provider.of<InfoProvider>(context);
-  return FutureBuilder(
-    future: PlatosProvider().getAll(infoProvider.token),
-    builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-      if (snapshot.hasData) {
-        // return Text("hola");
-        return ListView.builder(
-          physics: ScrollPhysics(parent: ScrollPhysics()),
-          shrinkWrap: true,
-          itemCount: snapshot.data.length,
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-          itemBuilder: (BuildContext context, int index) {
-            return _platos(snapshot.data[index], context);
-          },
-        );
-        // return SingleChildScrollView(
-        //   child: Column(
+  void removePlatoState(index) {
+    setState(() {
+      platosList.remove(index);
+    });
+  }
 
-        //    _ card(snapshot.data., AssetImage('assets/img/burger.jpg'),
-        //         "5.000"),
-        //     SizedBox(
-        //       height: 15.0,
-        //     ),
-        //   ),
-        // );
-      } else {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    },
-  );
+  // ignore: unused_element
+  _builderPlatos(BuildContext context) {
+    final infoProvider = Provider.of<InfoProvider>(context);
+    print(" info prvider token" + infoProvider.token);
+    return FutureBuilder(
+      future: PlatosProvider().getAll(infoProvider.token),
+      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+        platosList = snapshot.data;
+        if (snapshot.hasData) {
+          print("has data");
+          // return Text("hola");
+          return ListView.builder(
+            physics: ScrollPhysics(parent: ScrollPhysics()),
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            itemBuilder: (BuildContext context, int index) {
+              return _platos(snapshot.data[index], context, index);
+            },
+          );
+          // return SingleChildScrollView(
+          //   child: Column(
+
+          //    _ card(snapshot.data., AssetImage('assets/img/burger.jpg'),
+          //         "5.000"),
+          //     SizedBox(
+          //       height: 15.0,
+          //     ),
+          //   ),
+          // );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
 }
