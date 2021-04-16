@@ -1,15 +1,27 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/models/categoriaModel.dart';
+import 'package:flutter_application_1/providers/infoProvider.dart';
+import 'package:flutter_application_1/providers/categoriasProvider.dart';
+import 'package:provider/provider.dart';
 
-class Categorias extends StatefulWidget {
-  Categorias({Key key}) : super(key: key);
+class Category extends StatefulWidget {
+  Category({Key key}) : super(key: key);
 
   @override
-  _CategoriasState createState() => _CategoriasState();
+  CategoryState createState() => CategoryState();
 }
 
-class _CategoriasState extends State<Categorias> {
+class CategoryState extends State<Category> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.grey),
@@ -18,62 +30,27 @@ class _CategoriasState extends State<Categorias> {
           centerTitle: true,
           title: Text("Categorias", style: TextStyle(color: Colors.grey)),
         ),
+
         body: Container(
           color: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-            children: [
-              _category("Perro caliente", context),
-              Divider(
-                color: Colors.black,
-                thickness: 1.1,
-                height: 27,
-              ),
-              _category("Salchipapa", context),
-              Divider(
-                color: Colors.black,
-                height: 27,
-                thickness: 1.1,
-              ),
-              _category("pizza", context),
-              Divider(
-                color: Colors.black,
-                height: 27,
-                thickness: 1.1,
-              ),
-              _category("hamburguesas", context),
-              Divider(
-                color: Colors.black,
-                height: 27,
-                thickness: 1.1,
-              ),
-              _category("bebidas", context),
-              Divider(
-                color: Colors.black,
-                height: 27,
-                thickness: 1.1,
-              ),
-                                  InkWell(
-            child: Container(
-              width: 50,
-              height: 50,
-              color: Colors.grey,
-              child: Center(child: Text('REGISTRAR NUEVO CATEGORIA'),),
-            ),
-            onTap: () => {Navigator.pushNamed(context, 'registroCategoria')},
-          )],
-          ),
-        ));
-  }
+          height: double.infinity,
+          child: _builderCategorias(context),
+    
+        )
+        );
+          }
 }
 
-Widget _category(String text, BuildContext context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+Widget _category(Categoria data, BuildContext context) {
+  return Column(
     children: [
-      Text(text, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       Row(
-        children: [
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+         Text(data.nombre, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+         Row(children: [
+
+         
           InkWell(
             child: Container(
               width: 50,
@@ -93,10 +70,47 @@ Widget _category(String text, BuildContext context) {
               color: Colors.red,
               child: Icon(Icons.delete_forever, size: 40),
             ),
-            onTap: () => {print("object1")},
-          )
-        ],
+            onTap: () => Navigator.pushNamed(context, 'eliminarcategoria', arguments: {
+                    "id": data.id,
+                  })
+                  
+      )],
+      )]
       ),
-    ],
+      
+      
+            Divider(
+        color: Colors.black,
+        height: 27,
+        thickness: 1.1,
+      ),],
+      );
+
+  
+}
+
+
+Widget _builderCategorias(BuildContext context) {
+  final infoProvider = Provider.of<InfoProvider>(context);
+  return FutureBuilder(
+    future: CategoriaProvider().getAll(infoProvider.token),
+    builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+      if (snapshot.hasData) {
+        // return Text("hola");
+        return ListView.builder(
+          physics: ScrollPhysics(parent: ScrollPhysics()),
+          shrinkWrap: true,
+          itemCount: snapshot.data.length,
+          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+          itemBuilder: (BuildContext context, int index) {
+            return _category(snapshot.data[index], context);
+          },
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+    },
   );
 }

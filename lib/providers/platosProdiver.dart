@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_application_1/models/platoModel.dart';
 import 'package:flutter_application_1/providers/platosProdiver.dart';
 import 'package:http/http.dart' as http;

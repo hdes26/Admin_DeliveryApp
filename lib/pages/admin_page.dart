@@ -24,7 +24,7 @@ class _AdminPageState extends State<AdminPage> {
               children: [
                 Center(
                     child: Image.asset(
-                  'assets/perrascamelo.png',
+                  'assets/img/logo.jpg',
                   height: 200,
                 )),
                 Center(

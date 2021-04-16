@@ -77,7 +77,8 @@ class _PlatosState extends State<Platos> {
           //   ],
 
           // ),
-        ));
+        )
+        );
   }
 
   Widget _platos(Plato data, BuildContext context, int index) {
