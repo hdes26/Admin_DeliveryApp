@@ -74,7 +74,8 @@ class _PlatosState extends State<Platos> {
           //   ],
 
           // ),
-        ));
+        )
+        );
   }
 }
 
