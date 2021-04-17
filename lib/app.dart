@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/admin_page.dart';
 import 'package:flutter_application_1/pages/categorias_page.dart';
 import 'package:flutter_application_1/pages/editCategory_page.dart';
+import 'package:flutter_application_1/pages/editCategory_page2.dart';
 import 'package:flutter_application_1/pages/editPlato_page.dart';
 import 'package:flutter_application_1/pages/eliminarCategoria.dart';
 import 'package:flutter_application_1/pages/login.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
           'registroPlato': (BuildContext context) => RegistroPlato(),
           'registroCategoria': (BuildContext context) => RegistroCategorias(),
           'eliminarcategoria':(BuildContext context) => Eliminarcategoria(),
+          'editarcategoria2':(BuildContext context) => Editarcategoria2(),
           
         },
       ),

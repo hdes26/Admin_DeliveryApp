@@ -58,7 +58,10 @@ Widget _category(Categoria data, BuildContext context) {
               color: Colors.yellow,
               child: Icon(Icons.edit, size: 40),
             ),
-            onTap: () => {Navigator.pushNamed(context, 'editCategory')},
+            onTap: () => {Navigator.pushNamed(context, 'editCategory',arguments: {
+              "id":data.id,
+              "nombre":data.nombre
+            })},
           ),
           SizedBox(
             width: 30,
