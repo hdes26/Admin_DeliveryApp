@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/platoModel.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/providers/platosProdiver.dart';
-import 'package:flutter_application_1/utils/alertRemovePlato.dart';
 import 'package:provider/provider.dart';
 
 class Platos extends StatefulWidget {
@@ -25,60 +24,12 @@ class _PlatosState extends State<Platos> {
           centerTitle: true,
           title: Text("Platos", style: TextStyle(color: Colors.grey)),
         ),
-        // bottomNavigationBar: Container(
-        //   width: 50,
-        //   height: 50,
-        //   color: Colors.grey,
-        //   child: Center(
-        //     child: Text('REGISTRAR NUEVO PLATO'),
-        //   ),
-        // ),
+        bottomNavigationBar: _button(context),
         body: Container(
           color: Colors.white,
           height: double.infinity,
           child: _builderPlatos(context),
-          // child: ListView(
-          //   padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-          //   children: [
-          //     _platos("Perrascamelo", context),
-          //     Divider(
-          //       color: Colors.black,
-          //       thickness: 1.1,
-          //       height: 27,
-          //     ),
-          //     _platos("Perro gemelo", context),
-          //     Divider(
-          //       color: Colors.black,
-          //       height: 27,
-          //       thickness: 1.1,
-          //     ),
-          //     _platos("Perro suizo", context),
-          //     Divider(
-          //       color: Colors.black,
-          //       height: 27,
-          //       thickness: 1.1,
-          //     ),
-          //     _platos("perro secillo", context),
-          //     Divider(
-          //       color: Colors.black,
-          //       height: 27,
-          //       thickness: 1.1,
-          //     ),
-          //     _platos("hamburguesa de carne", context),
-          //     Divider(
-          //       color: Colors.black,
-          //       height: 27,
-          //       thickness: 1.1,
-          //     ),
-          //             InkWell(
-          //   child:
-          //   onTap: () => {Navigator.pushNamed(context, 'registroPlato')},
-          // )
-          //   ],
-
-          // ),
-        )
-        );
+        ));
   }
 
   Widget _platos(Plato data, BuildContext context, int index) {
@@ -97,30 +48,20 @@ class _PlatosState extends State<Platos> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(data.nombre,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Row(
-                children: [
-                  InkWell(
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      color: Colors.yellow,
-                      child: Icon(Icons.edit, size: 40),
-                    ),
-                    onTap: () => {
-                      Navigator.pushNamed(context, 'editPlato', arguments: {
-                        "nombre": data.nombre,
-                        "precio": data.precio,
-                        "nombre categoria": data.categoryId,
-                        "ingredientes": data.ingredientes
-                      })
-                    },
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                ],
+              InkWell(
+                child: Text(data.nombre,
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                onTap: () async {
+                  await Navigator.pushNamed(context, 'editPlato', arguments: {
+                    "id": data.id,
+                    "nombre": data.nombre,
+                    "precio": data.precio,
+                    // "nombre categoria": data.categoryId['nombre'],
+                    "ingredientes": data.ingredientes
+                  });
+                  setState(() {});
+                },
               ),
             ],
           ),
@@ -134,23 +75,15 @@ class _PlatosState extends State<Platos> {
     );
   }
 
-  void removePlatoState(index) {
-    setState(() {
-      platosList.remove(index);
-    });
-  }
-
   // ignore: unused_element
   _builderPlatos(BuildContext context) {
     final infoProvider = Provider.of<InfoProvider>(context);
     print(" info prvider token" + infoProvider.token);
     return FutureBuilder(
       future: PlatosProvider().getAll(infoProvider.token),
-      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<Plato>> snapshot) {
         platosList = snapshot.data;
         if (snapshot.hasData) {
-          print("has data");
-          // return Text("hola");
           return ListView.builder(
             physics: ScrollPhysics(parent: ScrollPhysics()),
             shrinkWrap: true,
@@ -160,22 +93,31 @@ class _PlatosState extends State<Platos> {
               return _platos(snapshot.data[index], context, index);
             },
           );
-          // return SingleChildScrollView(
-          //   child: Column(
-
-          //    _ card(snapshot.data., AssetImage('assets/img/burger.jpg'),
-          //         "5.000"),
-          //     SizedBox(
-          //       height: 15.0,
-          //     ),
-          //   ),
-          // );
         } else {
           return Center(
             child: CircularProgressIndicator(),
           );
         }
       },
+    );
+  }
+
+  Widget _button(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: Color(0xF2EB1515)),
+        onPressed: () {
+          Navigator.pushNamed(context, 'registroPlato');
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Text(
+            'Registrar Plato',
+            style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
     );
   }
 }

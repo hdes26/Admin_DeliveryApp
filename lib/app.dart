@@ -35,15 +35,15 @@ class MyApp extends StatelessWidget {
           'categorias': (BuildContext context) => Category(),
           'platos': (BuildContext context) => Platos(),
           'historialPedidos': (BuildContext context) => HistorialPedidos(),
-          'pedidoscronologicos': (BuildContext context) => PedidosCronologicos(),
+          'pedidoscronologicos': (BuildContext context) =>
+              PedidosCronologicos(),
           'editCategory': (BuildContext context) => EditCategory(),
           'editPlato': (BuildContext context) => EditPlato(),
           'login': (BuildContext context) => Login(),
           'loginVerificacion': (BuildContext context) => LoginVerificacion(),
           'registroPlato': (BuildContext context) => RegistroPlato(),
           'registroCategoria': (BuildContext context) => RegistroCategorias(),
-          'eliminarcategoria':(BuildContext context) => Eliminarcategoria(),
-          
+          'eliminarcategoria': (BuildContext context) => Eliminarcategoria(),
         },
       ),
     );

@@ -6,7 +6,6 @@ class Categoria {
   String id;
   String nombre;
 
-
   Categoria({
     this.id,
     this.nombre,
@@ -20,14 +19,14 @@ class Categoria {
 
 class Categorias {
   // ignore: deprecated_member_use
-  final List<Categoria> platos = new List();
+  final List<Categoria> categorys = new List();
   Categorias();
   Categorias.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
 
     for (var item in jsonList) {
-      final plato = new Categoria.fromJsonMap(item);
-      platos.add(plato);
+      final category = new Categoria.fromJsonMap(item);
+      categorys.add(category);
     }
   }
 }

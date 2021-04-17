@@ -34,4 +34,22 @@ class PlatosProvider {
     print(decodeData);
     return decodeData['message'].toString();
   }
+
+  update(String id, Plato platoParam, String token) async {
+    final categoriaid = platoParam.categoryId['id'];
+    final url = Uri.https(_url, '/api/plato/update/' + id);
+    final response = await http.put(url, headers: {
+      'x-access-token': token
+    }, body: {
+      "nombre": platoParam.nombre,
+      "precio": platoParam.precio.toString(),
+      "category_id": categoriaid,
+      "ingredientes": platoParam.ingredientes,
+    });
+    print(response.body);
+    final decodeData = json.decode(response.body);
+    final plato = new Plato.fromJsonMap(decodeData['plato']);
+
+    return plato;
+  }
 }
