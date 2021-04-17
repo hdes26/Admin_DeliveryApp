@@ -36,7 +36,7 @@ class _PlatosState extends State<Platos> {
     final infoProvider = Provider.of<InfoProvider>(context);
     return Dismissible(
       direction: DismissDirection.endToStart,
-      key: UniqueKey(),
+      key: Key(data.id),
       background: Container(
         color: Color(0x9DEB1515),
       ),
@@ -45,13 +45,16 @@ class _PlatosState extends State<Platos> {
       },
       child: Column(
         children: [
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
                 child: Text(data.nombre,
                     style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 onTap: () async {
                   await Navigator.pushNamed(context, 'editPlato', arguments: {
                     "id": data.id,
@@ -65,10 +68,12 @@ class _PlatosState extends State<Platos> {
               ),
             ],
           ),
+          SizedBox(
+            height: 10,
+          ),
           Divider(
             color: Colors.black,
-            height: 27,
-            thickness: 1.1,
+            thickness: 1,
           ),
         ],
       ),
@@ -107,8 +112,9 @@ class _PlatosState extends State<Platos> {
       padding: const EdgeInsets.all(20),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: Color(0xF2EB1515)),
-        onPressed: () {
-          Navigator.pushNamed(context, 'registroPlato');
+        onPressed: () async {
+          await Navigator.pushNamed(context, 'registroPlato');
+          setState(() {});
         },
         child: Padding(
           padding: const EdgeInsets.all(15.0),

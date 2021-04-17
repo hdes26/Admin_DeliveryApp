@@ -69,7 +69,14 @@ class _RegistroCategoriasState extends State<RegistroCategorias> {
       decoration: InputDecoration(),
     );
   }
+
+  Future _mostrarAlert() {
+    
+  }
 }
+
+
+
 
     
 

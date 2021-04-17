@@ -253,12 +253,8 @@ class _RegistroPlatoState extends State<RegistroPlato> {
         builder: (context) {
           return AlertDialog(
             title: Text(
-              'Plato guardado correctamente',
-              style: TextStyle(fontSize: 25),
-            ),
-            content: Text(
               message,
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 20),
             ),
             actions: [
               TextButton(

@@ -10,32 +10,32 @@ import 'package:provider/provider.dart';
 
 
 
-class Eliminarcategoria extends StatefulWidget {
-  Eliminarcategoria({Key key}) : super(key: key);
+class Editarcategoria2 extends StatefulWidget {
+  Editarcategoria2({Key key}) : super(key: key);
 
   @override
-  _EliminarcategoriaState createState() => _EliminarcategoriaState();
+  _Editarcategoria2State createState() => _Editarcategoria2State();
 }
 
-class _EliminarcategoriaState extends State<Eliminarcategoria> {
+class _Editarcategoria2State extends State<Editarcategoria2> {
   getUserData() async {
     Map parametrosCategoria = ModalRoute.of(context).settings.arguments;
     final infoProvider = Provider.of<InfoProvider>(context);
-    var url = 'https://backend-delivery.azurewebsites.net/api/category/remove/';
-    var parametros = parametrosCategoria;
-
+    var url = 'https://backend-delivery.azurewebsites.net/api/category/update/';
+    var id= parametrosCategoria;
     var headerToken = 'x-access-token';
-    final response = await http.delete(
-      Uri.parse(url+parametros["id"]),
+    final response =  await http.put(
+      Uri.parse(url+id["id"]),
       headers: {
         headerToken:infoProvider.token
-      }, 
+      },
+      body:{"nombre":id["nombre"]},
     );
     
     final jsonData = jsonDecode(response.body);
+          print(id["id"]);
+          print(jsonData["message"]);
 
-            print(jsonData['message']);
-          print(parametros["id"]);
     return jsonData;
   }
 
@@ -43,7 +43,7 @@ class _EliminarcategoriaState extends State<Eliminarcategoria> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text('Eliminacion de categoria'),),
+      appBar: AppBar(title: Text('Editacion de categoria'),),
       body: Container(
           color: Colors.white,
           child: FutureBuilder(
@@ -52,32 +52,20 @@ class _EliminarcategoriaState extends State<Eliminarcategoria> {
                  if (snapshot.data == null) {
                      return Container(
                         child: Center(
-                              child: Text('Eliminando categoria...'),
+                              child: Text('Editanto categoria...'),
                                                  ),
                                      );
                  }
                  else return Container(
-                   child: Center(child: Text('Categoria eliminada satisfactoriamente'),
+                   child: Center(child: Text('Categoria editada satisfactoriamente'),
                    ),
                  );
-                  
-                   
-                  
-                       
-                       },
+           },
          ),
      ),
     );
   }
   }
-
-
-
-
-
-
-
-
 
 
 

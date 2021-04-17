@@ -8,16 +8,17 @@ class HistorialPedidos extends StatefulWidget {
 }
 
 class _HistorialPedidosState extends State<HistorialPedidos> {
-   final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-         return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
         shadowColor: Colors.black,
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text("Historial de pedidos", style: TextStyle(color: Colors.grey)),
+        title:
+            Text("Historial de pedidos", style: TextStyle(color: Colors.grey)),
       ),
       body: ListView(
         children: [
