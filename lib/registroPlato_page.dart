@@ -1,7 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/providers/categoriasProvider.dart';
+import 'package:flutter_application_1/providers/infoProvider.dart';
+import 'package:flutter_application_1/providers/platosProdiver.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import 'models/categoriaModel.dart';
 
 class RegistroPlato extends StatefulWidget {
   RegistroPlato({Key key}) : super(key: key);
@@ -12,6 +18,11 @@ class RegistroPlato extends StatefulWidget {
 
 class _RegistroPlatoState extends State<RegistroPlato> {
   PickedFile imageFile;
+  File imageSelected;
+  String nombrePlato;
+  int precio;
+  String ingredientes;
+  String seleccion;
   _openCamera(BuildContext context) async {
     var picture = await ImagePicker().getImage(source: ImageSource.camera);
     this.setState(() {
@@ -32,6 +43,7 @@ class _RegistroPlatoState extends State<RegistroPlato> {
     if (imageFile == null) {
       return Text("No se ha seleccionado una imagen");
     } else {
+      imageSelected = File(imageFile.path);
       return Image.file(
         File(imageFile.path),
         height: 200,
@@ -95,6 +107,7 @@ class _RegistroPlatoState extends State<RegistroPlato> {
   }
 
   Widget _formEditPlato() {
+    final infoProvider = Provider.of<InfoProvider>(this.context, listen: false);
     return Container(
       child: Padding(
           padding: EdgeInsets.all(15),
@@ -105,7 +118,7 @@ class _RegistroPlatoState extends State<RegistroPlato> {
                 'Nombre de Categoria',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
+              _inputDropDownCategory(infoProvider),
               SizedBox(
                 height: 15,
               ),
@@ -113,7 +126,7 @@ class _RegistroPlatoState extends State<RegistroPlato> {
                 'Nombre de Plato',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
+              _inputTextNombre(),
               SizedBox(
                 height: 15,
               ),
@@ -121,7 +134,7 @@ class _RegistroPlatoState extends State<RegistroPlato> {
                 'Precio',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.number),
+              _inputTextPrecio(),
               SizedBox(
                 height: 15,
               ),
@@ -129,15 +142,7 @@ class _RegistroPlatoState extends State<RegistroPlato> {
                 'Ingredientes',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'tiempo de preparacion',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-              ),
-              _inputText(TextInputType.name),
+              _inputTextIngredientes(),
               SizedBox(
                 height: 20,
               ),
@@ -168,13 +173,100 @@ class _RegistroPlatoState extends State<RegistroPlato> {
           'Registrar plato',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        onPressed: () => {Navigator.pushNamed(context, 'loginVerificacion')});
+        onPressed: () async {
+          final infoProvider =
+              Provider.of<InfoProvider>(context, listen: false);
+          final response = await PlatosProvider().create(
+              infoProvider.token,
+              nombrePlato,
+              imageSelected,
+              precio.toString(),
+              ingredientes,
+              seleccion);
+
+          var response2 = await _mostrarAlert(response.toString());
+          Navigator.pop(context);
+        });
   }
 
-  Widget _inputText(TextInputType type) {
+  Widget _inputTextNombre() {
     return TextField(
-      keyboardType: type,
-      decoration: InputDecoration(),
+        keyboardType: TextInputType.text,
+        onChanged: (save) => setState(() {
+              nombrePlato = save;
+            }));
+  }
+
+  Widget _inputTextPrecio() {
+    return TextField(
+        keyboardType: TextInputType.number,
+        onChanged: (save) => setState(() {
+              precio = int.parse(save);
+            }));
+  }
+
+  Widget _inputTextIngredientes() {
+    return TextField(
+        keyboardType: TextInputType.text,
+        onChanged: (save) => setState(() {
+              ingredientes = save;
+            }));
+  }
+
+  Widget _inputDropDownCategory(InfoProvider infoProvider) {
+    return FutureBuilder(
+      future: CategoriaProvider().getAll(infoProvider.token),
+      builder: (BuildContext context, AsyncSnapshot<List<Categoria>> snapshot) {
+        if (snapshot.hasData) {
+          return new DropdownButton(
+            items: snapshot.data.map((item) {
+              return DropdownMenuItem(
+                child: Text(item.nombre),
+                value: item.id,
+              );
+            }).toList(),
+            onChanged: (newVal) {
+              setState(() {
+                print(newVal);
+                seleccion = newVal;
+              });
+            },
+            value: seleccion,
+          );
+        } else {
+          return DropdownButton(
+            items: [
+              DropdownMenuItem(
+                child: Text('salchipapa'),
+              )
+            ],
+          );
+        }
+      },
     );
+  }
+
+  Future _mostrarAlert(String message) {
+    return showDialog(
+        useSafeArea: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'Plato guardado correctamente',
+              style: TextStyle(fontSize: 25),
+            ),
+            content: Text(
+              message,
+              style: TextStyle(fontSize: 18),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Ok', style: TextStyle(fontSize: 20)),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          );
+        });
   }
 }

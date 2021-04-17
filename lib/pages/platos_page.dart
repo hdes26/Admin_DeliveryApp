@@ -41,7 +41,7 @@ class _PlatosState extends State<Platos> {
         color: Color(0x9DEB1515),
       ),
       onDismissed: (direccion) {
-        // PlatosProvider().delete(data.id, infoProvider.token);
+        PlatosProvider().delete(data.id, infoProvider.token);
       },
       child: Column(
         children: [
