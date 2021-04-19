@@ -106,6 +106,7 @@ Widget _builderCategorias(BuildContext context) {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
           itemBuilder: (BuildContext context, int index) {
+            print(snapshot.data[index].id);
             return _category(snapshot.data[index], context);
           },
         );
