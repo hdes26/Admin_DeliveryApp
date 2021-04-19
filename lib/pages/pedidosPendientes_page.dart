@@ -1,4 +1,14 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/models/pedidosPendientes.dart';
+import 'package:flutter_application_1/providers/pedidoPendientesProvider.dart';
+import 'package:flutter_application_1/providers/infoProvider.dart';
+import 'package:provider/provider.dart';
+
 
 class PedidosPendientes extends StatefulWidget {
   PedidosPendientes({Key key}) : super(key: key);
@@ -31,37 +41,11 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
                 SizedBox(
                   height: 20.0,
                 ),
-                _pedido("1", "En envio"),
+                _builderCategorias(context),
                 Divider(
                   color: Colors.grey,
                   height: 30.0,
                 ),
-                _pedido("2", "Confirmando"),
-                Divider(
-                  color: Colors.grey,
-                  height: 30.0,
-                ),
-                _pedido("3", "preparando"),
-                Divider(
-                  color: Colors.grey,
-                  height: 30.0,
-                ),
-                _pedido("4", "Confirmando"),
-                Divider(
-                  color: Colors.grey,
-                  height: 30.0,
-                ),
-                _pedido("5", "preparando"),
-                Divider(
-                  color: Colors.grey,
-                  height: 30.0,
-                ),
-                _pedido("6", "Confirmando"),
-                Divider(
-                  color: Colors.grey,
-                  height: 30.0,
-                ),
-                _pedido("7", "preparando"),
               ],
             ),
           )
@@ -98,13 +82,13 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-  Widget _pedido(String numeroPedido, String estado) {
+  Widget _pedido(int numeroPedido, String estado, int valor, String plato) {
     Color colorBar;
     switch (estado) {
-      case "En envio":
-        colorBar = Colors.green;
+      case "enviado":
+        colorBar = Colors.blue;
         break;
-      case "Confirmando":
+      case "por confirmar":
         colorBar = Colors.red;
         break;
       case "preparando":
@@ -119,12 +103,12 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           Row(
             children: [
               Text(
-                "pedido # " + numeroPedido,
+                "pedido # " +  numeroPedido.toString(),
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               Expanded(child: SizedBox()),
               Text(
-                "20.000",
+                valor.toString(),
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               Expanded(child: SizedBox()),
@@ -133,7 +117,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _listPedido(),
+              _listPedido(plato.toString()),
               Container(
                 decoration: BoxDecoration(
                     color: colorBar, borderRadius: BorderRadius.circular(20.0)),
@@ -167,7 +151,12 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
               ),
               SizedBox()
             ],
-          )
+          ),
+               Divider(
+        color: Colors.black,
+        height: 27,
+        thickness: 1.1,
+      ),
         ],
       ),
       onTap: () {
@@ -176,17 +165,12 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-  Widget _listPedido() {
+   Widget _listPedido(String platos) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _itemList("1 perro sencillo"),
+        _itemList(platos),
         SizedBox(height: 5.0),
-        _itemList("2 perro gemelo"),
-        SizedBox(height: 5.0),
-        _itemList("1 pizza small"),
-        SizedBox(height: 5.0),
-        _itemList("1 perro sencillo"),
       ],
     );
   }
@@ -199,6 +183,38 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
       ),
     );
   }
+
+
+  Widget _builderCategorias(BuildContext context) {
+  final infoProvider = Provider.of<InfoProvider>(context);
+  return FutureBuilder(
+    future: PedidosProvider().getAll(infoProvider.token),
+    builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+      if (snapshot.hasData) {
+        // return Text("hola");
+        return ListView.builder(
+          physics: ScrollPhysics(parent: ScrollPhysics()),
+          shrinkWrap: true,
+          itemCount: snapshot.data.length,
+          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+          itemBuilder: (BuildContext context, int index) {
+            print(snapshot.data[index].nombre[0]["nombre"]);
+            return 
+              
+                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].nombre[0]["nombre"]);
+              
+            
+          },
+        );
+      } else {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+    },
+  );
+}
+  
 }
 
 
