@@ -101,9 +101,9 @@ class _EditPlatoState extends State<EditPlato> {
           'Editar Plato',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        onPressed: () {
+        onPressed: () async {
           if (ingredientes == '' && nombrePlato == '' && precio == 0) {
-            PlatosProvider().update(
+            final response = await PlatosProvider().update(
                 id,
                 new Plato(
                     id: id,
@@ -112,9 +112,10 @@ class _EditPlatoState extends State<EditPlato> {
                     ingredientes: params['ingredientes'],
                     categoryId: {'id': seleccion, 'nombre': ''}),
                 infoProvider.token);
+            await _mostrarAlert(response);
             Navigator.pop(context);
           } else if (ingredientes == '' && nombrePlato == '') {
-            PlatosProvider().update(
+            final response = await PlatosProvider().update(
                 id,
                 new Plato(
                     id: id,
@@ -123,9 +124,11 @@ class _EditPlatoState extends State<EditPlato> {
                     ingredientes: params['ingredientes'],
                     categoryId: {'id': seleccion, 'nombre': ''}),
                 infoProvider.token);
+            await _mostrarAlert(response);
+
             Navigator.pop(context);
           } else if (precio == 0 && nombrePlato == '') {
-            PlatosProvider().update(
+            final response = await PlatosProvider().update(
                 id,
                 new Plato(
                     id: id,
@@ -134,9 +137,11 @@ class _EditPlatoState extends State<EditPlato> {
                     ingredientes: ingredientes,
                     categoryId: {'id': seleccion, 'nombre': ''}),
                 infoProvider.token);
+            await _mostrarAlert(response);
+
             Navigator.pop(context);
           } else if (precio == 0 && ingredientes == '') {
-            PlatosProvider().update(
+            final response = await PlatosProvider().update(
                 id,
                 new Plato(
                     id: id,
@@ -145,6 +150,7 @@ class _EditPlatoState extends State<EditPlato> {
                     ingredientes: params['ingredientes'],
                     categoryId: {'id': seleccion, 'nombre': ''}),
                 infoProvider.token);
+            await _mostrarAlert(response);
             Navigator.pop(context);
           }
         });
@@ -208,5 +214,25 @@ class _EditPlatoState extends State<EditPlato> {
         onChanged: (save) => setState(() {
               ingredientes = save;
             }));
+  }
+
+  Future _mostrarAlert(String message) {
+    return showDialog(
+        useSafeArea: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(
+              message,
+              style: TextStyle(fontSize: 20),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Ok', style: TextStyle(fontSize: 20)),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          );
+        });
   }
 }

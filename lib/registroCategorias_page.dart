@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/providers/categoriasProvider.dart';
+import 'package:flutter_application_1/providers/infoProvider.dart';
+import 'package:provider/provider.dart';
+
 class RegistroCategorias extends StatefulWidget {
   RegistroCategorias({Key key}) : super(key: key);
 
@@ -7,15 +11,17 @@ class RegistroCategorias extends StatefulWidget {
 }
 
 class _RegistroCategoriasState extends State<RegistroCategorias> {
+  String nombre;
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
         shadowColor: Colors.black,
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text("Registrar categoria", style: TextStyle(color: Colors.grey)),
+        title:
+            Text("Registrar categoria", style: TextStyle(color: Colors.grey)),
       ),
       body: Container(
         color: Colors.white,
@@ -41,14 +47,14 @@ class _RegistroCategoriasState extends State<RegistroCategorias> {
                 'Nombre de Categoria',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              _inputText(TextInputType.name),
-        
+              _inputTextNombre(),
             ],
           )),
     );
   }
 
   Widget _buttonSend() {
+    final infoProvider = Provider.of<InfoProvider>(context, listen: false);
     // ignore: deprecated_member_use
     return RaisedButton(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
@@ -60,25 +66,40 @@ class _RegistroCategoriasState extends State<RegistroCategorias> {
           'Registrar  categoria',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        onPressed: () => {Navigator.pushNamed(context, 'loginVerificacion')});
+        onPressed: () async {
+          var response =
+              await CategoriaProvider().create(infoProvider.token, nombre);
+          print(response);
+          await _mostrarAlert(response);
+          Navigator.pop(context);
+        });
   }
 
-  Widget _inputText(TextInputType type) {
+  Widget _inputTextNombre() {
     return TextField(
-      keyboardType: type,
-      decoration: InputDecoration(),
-    );
+        keyboardType: TextInputType.text,
+        onChanged: (save) => setState(() {
+              nombre = save;
+            }));
   }
 
-  Future _mostrarAlert() {
-    
+  Future _mostrarAlert(String message) {
+    return showDialog(
+        useSafeArea: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              message,
+              style: TextStyle(fontSize: 20),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Ok', style: TextStyle(fontSize: 20)),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          );
+        });
   }
 }
-
-
-
-
-    
-
-
-

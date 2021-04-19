@@ -81,7 +81,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
     );
   }
 
-  Widget _pedido(int numeroPedido, String estado, int valor) {
+  Widget _pedido(int numeroPedido, String estado, int valor, String plato) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -115,7 +115,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _listPedido("Perro sencillo"),
+            _listPedido(plato.toString()),
             Container(
               decoration: BoxDecoration(
                   color: colorBar, borderRadius: BorderRadius.circular(20.0)),
@@ -165,11 +165,6 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
       children: [
         _itemList(platos),
         SizedBox(height: 5.0),
-        _itemList(platos),
-        SizedBox(height: 5.0),
-        _itemList(platos),
-        SizedBox(height: 5.0),
-        _itemList(platos),
       ],
     );
   }
@@ -197,10 +192,10 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].numero);
+            print(snapshot.data[index].nombre[0]["nombre"]);
             return 
               
-                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor);
+                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].nombre[0]["nombre"]);
               
             
           },

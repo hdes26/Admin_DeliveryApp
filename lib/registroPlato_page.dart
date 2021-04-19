@@ -252,7 +252,7 @@ class _RegistroPlatoState extends State<RegistroPlato> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(
+            content: Text(
               message,
               style: TextStyle(fontSize: 20),
             ),

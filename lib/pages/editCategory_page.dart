@@ -1,13 +1,15 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:flutter_application_1/models/categoriaModel.dart';
-import 'package:flutter_application_1/providers/infoProvider.dart';
-import 'package:flutter_application_1/providers/categoriasProvider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
+import 'package:flutter_application_1/models/categoriaModel.dart';
+import 'package:flutter_application_1/models/platoModel.dart';
+import 'package:flutter_application_1/providers/categoriasProvider.dart';
+import 'package:flutter_application_1/providers/infoProvider.dart';
+import 'package:flutter_application_1/providers/platosProdiver.dart';
+import 'package:provider/provider.dart';
 
 class EditCategory extends StatefulWidget {
   EditCategory({Key key}) : super(key: key);
@@ -17,91 +19,52 @@ class EditCategory extends StatefulWidget {
 }
 
 class _EditCategoryState extends State<EditCategory> {
-  getUserData() async {
-    Map parametrosCategoria = ModalRoute.of(context).settings.arguments;
-    final infoProvider = Provider.of<InfoProvider>(context);
-    var url = 'https://backend-delivery.azurewebsites.net/api/category/';
-    var id = parametrosCategoria;
-    var headerToken = 'x-access-token';
-    final response = await http.get(
-      Uri.parse(url+id["id"]),
-      headers: { 
-        headerToken:infoProvider.token
-      },
-    );
-    
-    final jsonData = jsonDecode(response.body);
-            print(jsonData['category']);
-             print(jsonData['category']["_id"]);
-            print(jsonData['category']["nombre"]);
-            
-    return jsonData["category"];
-  }
-
   final formKey = GlobalKey<FormState>();
+
+  String nombre = '';
   @override
   Widget build(BuildContext context) {
+    Map parametros = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-      appBar: AppBar(title: Text('Editacion de categoria'),),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.grey),
+        shadowColor: Colors.black,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text("Editar Categoria", style: TextStyle(color: Colors.grey)),
+      ),
       body: Container(
-          color: Colors.white,
-          child: FutureBuilder(
-            future: getUserData(),
-            builder: (context,snapshot){
-                 if (snapshot.data == null) {
-                     return Container(
-                        child: Center(
-                              
-                              child: Text('Editando categoria...'),                         
-                                                 ),
-                                     );
-                 }      
-                 else return Container(color: Colors.white,
+        color: Colors.white,
         padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
         child: ListView(
           children: [
-            
-            _formCategory(snapshot.data["_id"], snapshot.data["nombre"]),
+            _formCategory(parametros),
           ],
         ),
-        );
-                  
-                   
-                  
-                       
-                       },
-         ),
-     ),
-    );
-      
-  }
-
-  Widget _formCategory(String dataid, String datanombre) {
-    TextEditingController _textController = TextEditingController(text: "");
-
-    return Column(children: [
-      Padding(padding: EdgeInsets.all(10)),
-      TextFormField(
-        
-        controller: _textController,
-        autofocus: true,
-        decoration: InputDecoration(
-          
-            hintText: datanombre,
-            labelStyle:
-                TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            focusColor: Colors.red),
-        onFieldSubmitted: (value) =>
-            {Navigator.pushNamed(context, 'searchPlato')},
       ),
-      _buttonSend(dataid,datanombre, context, _textController)
-    ],
-      
     );
   }
 
-  Widget _buttonSend( String dataid, String datanombre, BuildContext context, dynamic textController) {
-    
+  Widget _formCategory(Map parametros) {
+    return Column(
+      children: [
+        Padding(padding: EdgeInsets.all(10)),
+        _inputTextNombre(parametros['nombre']),
+        SizedBox(
+          height: 60.0,
+        ),
+        _buttonSend(parametros['id'], nombre, context)
+      ],
+    );
+  }
+
+  Widget _buttonSend(
+    String id,
+    String nombre,
+    BuildContext context,
+  ) {
+    final infoProvider = Provider.of<InfoProvider>(context, listen: false);
     // ignore: deprecated_member_use
     // ignore: deprecated_member_use
     return RaisedButton(
@@ -114,31 +77,42 @@ class _EditCategoryState extends State<EditCategory> {
           'Editar categoria',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        onPressed: () => {print(textController.text),
-        Navigator.pushNamed(context, 'editarcategoria2', arguments: {
-          
-          "id":dataid,
-          "nombre":textController.text}
-          )}
-     );
+        onPressed: () async {
+          final response =
+              await CategoriaProvider().update(id, nombre, infoProvider.token);
+          await _mostrarAlert(response);
+          Navigator.pop(context);
+          // Navigator.pushNamed(context, 'editarcategoria2',
+          //     arguments: {"id": dataid, "nombre": textController.text})
+        });
   }
 
+  Widget _inputTextNombre(String text) {
+    return TextField(
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(labelText: text),
+        onChanged: (save) => setState(() {
+              nombre = save;
+            }));
+  }
 
-
+  Future _mostrarAlert(String message) {
+    return showDialog(
+        useSafeArea: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(
+              message,
+              style: TextStyle(fontSize: 20),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Ok', style: TextStyle(fontSize: 20)),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          );
+        });
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/platoModel.dart';
+import 'package:flutter_application_1/providers/categoriasProvider.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/providers/platosProdiver.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +74,7 @@ class _PlatosState extends State<Platos> {
           ),
           Divider(
             color: Colors.black,
-            thickness: 1,
+            thickness: 0.2,
           ),
         ],
       ),
@@ -83,7 +84,6 @@ class _PlatosState extends State<Platos> {
   // ignore: unused_element
   _builderPlatos(BuildContext context) {
     final infoProvider = Provider.of<InfoProvider>(context);
-    print(" info prvider token" + infoProvider.token);
     return FutureBuilder(
       future: PlatosProvider().getAll(infoProvider.token),
       builder: (BuildContext context, AsyncSnapshot<List<Plato>> snapshot) {

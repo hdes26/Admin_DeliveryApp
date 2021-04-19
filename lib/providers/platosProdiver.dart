@@ -78,8 +78,8 @@ class PlatosProvider {
     });
     print(response.body);
     final decodeData = json.decode(response.body);
-    final plato = new Plato.fromJsonMap(decodeData['plato']);
+    // final plato = new Plato.fromJsonMap(decodeData['plato']);
 
-    return plato;
+    return decodeData['messagee'];
   }
 }
