@@ -9,8 +9,12 @@ class PedidosCronologicos extends StatefulWidget {
 }
 
 class _PedidosCronologicosState extends State<PedidosCronologicos> {
+ String estados = "preparando";
   @override
   Widget build(BuildContext context) {
+    Map parametros = ModalRoute.of(context).settings.arguments;
+    
+    
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -40,7 +44,7 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                 ),
                 SizedBox(),
                 Text(
-                  "20.000",
+                  parametros['total'],
                   style: TextStyle(fontSize: 20.0, fontFamily: "Chonburi"),
                 ),
               ],
@@ -76,7 +80,7 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                   style: TextStyle(fontSize: 20.0, fontFamily: "Chonburi"),
                 ),
                 Text(
-                  "Calle 132 #56-43",
+                  parametros['direccion'],
                   style: TextStyle(fontSize: 20.0, fontFamily: "Chonburi"),
                 ),
                 SizedBox(),
@@ -92,19 +96,11 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
 
             Row(
               children: [
-                Text('1 Perro suizo', style: TextStyle(fontSize: 20.0),),
+                Text(parametros['plato'], style: TextStyle(fontSize: 20.0),),
               ],
             ),
-            Row(
-              children: [
-                Text("1 Papas medianas",style: TextStyle(fontSize: 20.0),),
-              ],
-            ),
-            Row(
-              children: [
-                Text("2 hamburguesas de carne",style: TextStyle(fontSize: 20.0),),
-              ],
-            ),
+           
+           
                         Divider(
               thickness: 2,
               color: Colors.black,
@@ -126,8 +122,31 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
             ),
             Row(children: [
               Text('Estado: ',style:TextStyle(fontSize: 17),),
-              DropdownButton(items: [],hint: Text('Preparado',),iconSize: 30,)
-            ],),
+              DropdownButton(
+              value: estados,
+              items: [
+                DropdownMenuItem(
+                  child: Text(parametros['estado']),
+                  value: "preparando",
+                ),
+                DropdownMenuItem(
+                  child: Text("enviado"),
+                  value: "enviado",
+                ),
+                DropdownMenuItem(
+                  child: Text("por confirmar"),
+                  value: "por confirmar"
+                ),
+                
+              ],
+              onChanged: (value) {
+                setState(() {
+                estados=value;
+                });
+              
+              })
+              ]
+             ,),
           ],
         ),
       ),

@@ -22,6 +22,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -160,7 +161,12 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
         ],
       ),
       onTap: () {
-        Navigator.pushNamed(context, 'pedidoscronologicos');
+        Navigator.pushNamed(context, 'pedidoscronologicos' ,arguments: {
+          "total":valor.toString(),
+          "direccion":"calle 38B # 1c-72",
+          "plato":plato.toString(),
+          "estado":estado.toString()
+        });
       },
     );
   }
