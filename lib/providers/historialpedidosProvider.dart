@@ -21,4 +21,18 @@ class CategoriaProvider {
     final categoria = new Historialenviados.fromJsonMap(decodeData['pedido']);
     return categoria;
   }
+
+
+  update(String id, String estado, String token) async {
+    final url = Uri.https(_url, '/api/pedido/estado/' + id);
+    final response = await http.put(url, headers: {
+      'x-access-token': token
+    }, body: {
+      "estado": estado,
+    });
+    print(response.body);
+    final decodeData = json.decode(response.body);
+
+    return decodeData["message"];
+  }
 }

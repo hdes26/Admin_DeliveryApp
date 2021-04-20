@@ -1,4 +1,13 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/models/pedidosPendientes.dart';
+import 'package:flutter_application_1/providers/pedidoPendientesProvider.dart';
+import 'package:flutter_application_1/providers/historialpedidosProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
 class PedidosCronologicos extends StatefulWidget {
@@ -140,8 +149,16 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                 
               ],
               onChanged: (value) {
-                setState(() {
                 estados=value;
+                setState(() async{            
+          final response =
+            await CategoriaProvider().update(parametros["id"], estados, parametros["token"]);
+          await _mostrarAlert(response);
+          Navigator.pop(context);
+          // Navigator.pushNamed(context, 'editarcategoria2',
+          //     arguments: {"id": dataid, "nombre": textController.text}
+                  
+                
                 });
               
               })
@@ -151,6 +168,25 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
         ),
       ),
     );
+  }
+   Future _mostrarAlert(String message) {
+    return showDialog(
+        useSafeArea: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(
+              message,
+              style: TextStyle(fontSize: 20),
+            ),
+            actions: [
+              TextButton(
+                child: Text('Ok', style: TextStyle(fontSize: 20)),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          );
+        });
   }
 }
 

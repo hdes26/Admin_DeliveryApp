@@ -8,6 +8,8 @@ import 'package:flutter_application_1/models/pedidosPendientes.dart';
 import 'package:flutter_application_1/providers/pedidoPendientesProvider.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+
 
 
 class PedidosPendientes extends StatefulWidget {
@@ -83,7 +85,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-  Widget _pedido(int numeroPedido, String estado, int valor, String plato) {
+  Widget _pedido(int numeroPedido, String estado, int valor, String plato, String id) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -165,7 +167,9 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           "total":valor.toString(),
           "direccion":"calle 38B # 1c-72",
           "plato":plato.toString(),
-          "estado":estado.toString()
+          "estado":estado.toString(),
+          "id":id.toString(),
+          "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJudW1lcm8iOjMxMDc0NzAwMTksImNvZGlnbyI6NjcwODc3LCJpYXQiOjE2MTg4NTUyMDQsImV4cCI6MTYxODg4NDAwNH0.BVH_P45gTnH3iXjPRZP7_kjptJDFIPQ8W_fwtPkjILk",
         });
       },
     );
@@ -207,7 +211,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
             print(snapshot.data[index].nombre[0]["nombre"]);
             return 
               
-                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].nombre[0]["nombre"]);
+                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].nombre[0]["nombre"],snapshot.data[index].id);
               
             
           },
