@@ -135,7 +135,7 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
               value: estados,
               items: [
                 DropdownMenuItem(
-                  child: Text(parametros['estado']),
+                  child: Text('preparando'),
                   value: "preparando",
                 ),
                 DropdownMenuItem(
@@ -155,10 +155,6 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
             await CategoriaProvider().update(parametros["id"], estados, parametros["token"]);
           await _mostrarAlert(response);
           Navigator.pop(context);
-          // Navigator.pushNamed(context, 'editarcategoria2',
-          //     arguments: {"id": dataid, "nombre": textController.text}
-                  
-                
                 });
               
               })

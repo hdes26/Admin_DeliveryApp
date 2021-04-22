@@ -81,7 +81,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
     );
   }
 
-  Widget _pedido(int numeroPedido, String estado, int valor, String plato) {
+  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id, dynamic pedido) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -115,7 +115,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _listPedido(plato.toString()),
+            _listPedido(plato),
             Container(
               decoration: BoxDecoration(
                   color: colorBar, borderRadius: BorderRadius.circular(20.0)),
@@ -159,13 +159,17 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
     );
   }
 
-  Widget _listPedido(String platos) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _itemList(platos),
-        SizedBox(height: 5.0),
-      ],
+   Widget _listPedido(List platos) {
+     return Expanded(
+      child: Container(
+        child: ListView.builder(
+          itemCount: platos.length,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return _itemList(platos[index]['nombre']);
+          },
+        ),
+      ),
     );
   }
 
@@ -195,7 +199,13 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
             print(snapshot.data[index].platos[0]["nombre"]);
             return 
               
-                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].platos[0]["nombre"]);
+                 _condicional(snapshot.data[index].numero,
+                  snapshot.data[index].estado,
+                  snapshot.data[index].valor,
+                  snapshot.data[index].platos,
+                  snapshot.data[index].id,
+                  snapshot.data[index].platos,
+                  infoProvider.token);
               
             
           },
@@ -207,6 +217,18 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
       }
     },
   );
+}
+
+_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token ){
+  return _pedido(
+      numero,
+      estado,
+      valor,
+      platos,
+      id,
+      tamano[0]["nombre"]
+       );
+    
 }
 }
 

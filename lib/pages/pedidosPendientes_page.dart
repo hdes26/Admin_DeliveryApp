@@ -85,7 +85,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id, dynamic pedido) {
+  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id, dynamic pedido, String token) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -96,6 +96,9 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
         break;
       case "preparando":
         colorBar = Colors.yellow;
+        break;
+      case "cancelado":
+        colorBar = Colors.black;
         break;
       default:
     }
@@ -166,11 +169,11 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
         Navigator.pushNamed(context, 'pedidoscronologicos' ,arguments: {
           "total":valor.toString(),
           "direccion":"calle 38B # 1c-72",
-          "plato":plato.toString(),
+          "plato":pedido,
           "estado":estado.toString(),
           "id":id.toString(),
           //CORREGIR
-          "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJudW1lcm8iOjMxMDc0NzAwMTksImNvZGlnbyI6NjcwODc3LCJpYXQiOjE2MTg4NTUyMDQsImV4cCI6MTYxODg4NDAwNH0.BVH_P45gTnH3iXjPRZP7_kjptJDFIPQ8W_fwtPkjILk",
+          "token":token,
         });
       },
     );
@@ -213,7 +216,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].platos);
+            print(infoProvider.token);
             return 
               
                 _condicional(snapshot.data[index].numero,
@@ -221,7 +224,8 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
                   snapshot.data[index].valor,
                   snapshot.data[index].platos,
                   snapshot.data[index].id,
-                  snapshot.data[index].platos);
+                  snapshot.data[index].platos,
+                  infoProvider.token);
               
             
           },
@@ -235,16 +239,15 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
   );
 }
 
-_condicional(int numero, String estado,int valor,List platos, String id,List tamano ){
+_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token ){
   return _pedido(
       numero,
       estado,
       valor,
       platos,
       id,
-      tamano[0]["nombre"]);
+      tamano[0]["nombre"],
+      token);
 }
   
 }
-
-
