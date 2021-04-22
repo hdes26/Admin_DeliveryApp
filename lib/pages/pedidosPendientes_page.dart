@@ -85,7 +85,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-  Widget _pedido(int numeroPedido, String estado, int valor, String plato, String id) {
+  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id, dynamic pedido) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -120,7 +120,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _listPedido(plato.toString()),
+              _listPedido(plato),
               Container(
                 decoration: BoxDecoration(
                     color: colorBar, borderRadius: BorderRadius.circular(20.0)),
@@ -169,19 +169,24 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           "plato":plato.toString(),
           "estado":estado.toString(),
           "id":id.toString(),
+          //CORREGIR
           "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJudW1lcm8iOjMxMDc0NzAwMTksImNvZGlnbyI6NjcwODc3LCJpYXQiOjE2MTg4NTUyMDQsImV4cCI6MTYxODg4NDAwNH0.BVH_P45gTnH3iXjPRZP7_kjptJDFIPQ8W_fwtPkjILk",
         });
       },
     );
   }
 
-   Widget _listPedido(String platos) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _itemList(platos),
-        SizedBox(height: 5.0),
-      ],
+   Widget _listPedido(List platos) {
+     return Expanded(
+      child: Container(
+        child: ListView.builder(
+          itemCount: platos.length,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return _itemList(platos[index]['nombre']);
+          },
+        ),
+      ),
     );
   }
 
@@ -208,10 +213,15 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].platos[0]["nombre"]);
+            print(snapshot.data[index].platos);
             return 
               
-                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].platos[0]["nombre"],snapshot.data[index].id);
+                _condicional(snapshot.data[index].numero,
+                  snapshot.data[index].estado,
+                  snapshot.data[index].valor,
+                  snapshot.data[index].platos,
+                  snapshot.data[index].id,
+                  snapshot.data[index].platos);
               
             
           },
@@ -225,7 +235,15 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
   );
 }
 
-
+_condicional(int numero, String estado,int valor,List platos, String id,List tamano ){
+  return _pedido(
+      numero,
+      estado,
+      valor,
+      platos,
+      id,
+      tamano[0]["nombre"]);
+}
   
 }
 
