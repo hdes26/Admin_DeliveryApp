@@ -2,12 +2,14 @@
 
 import 'dart:convert';
 
+import 'package:flutter_application_1/models/usuarioModel.dart';
+
 class Historialpedidos {
-    List<String> platos;
-  List nombre;
+  List platos;
+  String nombre;
   String id;
   int valor;
-  String usuarioId;
+  UsuarioModel usuarioId;
   String estado;
   String direccionId;
   String fecha;
@@ -27,10 +29,11 @@ class Historialpedidos {
   });
 
   Historialpedidos.fromJsonMap(Map<String, dynamic> json) {
-    nombre= json["platos"] ;
+    platos = json['platos'];
+    nombre= json["nombre"] ;
     id = json['_id'];
     valor = json['valor'];
-    usuarioId = json['usuario_id'];
+    usuarioId = UsuarioModel.fromJsonMap(json['usuario_id']);
     estado = json['estado'];
     direccionId = json['direccion_id'];
     fecha = json['fecha'];

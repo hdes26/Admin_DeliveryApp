@@ -192,10 +192,10 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].nombre[0]["nombre"]);
+            print(snapshot.data[index].platos[0]["nombre"]);
             return 
               
-                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].nombre[0]["nombre"]);
+                _pedido(snapshot.data[index].numero, snapshot.data[index].estado,snapshot.data[index].valor,snapshot.data[index].platos[0]["nombre"]);
               
             
           },
