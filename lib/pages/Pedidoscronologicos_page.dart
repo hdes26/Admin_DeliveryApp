@@ -160,7 +160,19 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
               })
               ]
              ,),
-          ],
+             
+          Row(
+              children: [
+              Padding(padding: EdgeInsets.fromLTRB(0, 40, 0, 5)),
+              Text(
+                'Pedidor por :',style: TextStyle(fontSize: 15),
+                ),
+                Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 5)),
+                Text(
+                  parametros['nombre'], style: TextStyle(fontSize:18),),
+            ],
+          )
+            ],
         ),
       ),
     );
