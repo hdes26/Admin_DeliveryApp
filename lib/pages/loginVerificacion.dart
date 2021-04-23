@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_application_1/models/loginModals.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/providers/loginProvider-verification.dart';
@@ -17,6 +18,11 @@ class _LoginVerificacionState extends State<LoginVerificacion> {
   final formKey = GlobalKey<FormState>();
   final loginModal = new LoginModal();
   final loginVerificationProvider = new LoginVerificationProvider();
+  @override
+  void initState() {
+    EasyLoading.dismiss();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +130,10 @@ class _LoginVerificacionState extends State<LoginVerificacion> {
     int number = infoProvider.number;
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-
+      EasyLoading.show(
+          status: "Loading",
+          maskType: EasyLoadingMaskType.black,
+          dismissOnTap: false);
       var info = await loginVerificationProvider.verification(verify, number);
       infoProvider.token = info[1];
       print(infoProvider.token);

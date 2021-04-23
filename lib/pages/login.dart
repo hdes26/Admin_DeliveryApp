@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_application_1/models/loginModals.dart';
 import 'package:flutter_application_1/providers/loginProvider-verification.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
@@ -17,6 +17,12 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final loginProvider = new LoginProvider();
   LoginModal loginModal = new LoginModal();
+
+  @override
+  void initState() {
+    EasyLoading.dismiss();
+    super.initState();
+  }
 
   // InfoProvider infoProvider;
   @override
@@ -61,7 +67,10 @@ class _LoginState extends State<Login> {
     final infoProvider = Provider.of<InfoProvider>(this.context, listen: false);
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-
+      EasyLoading.show(
+          status: "Loading",
+          maskType: EasyLoadingMaskType.black,
+          dismissOnTap: false);
       bool info = await loginProvider.user(infoProvider.number);
       print("Codigo " + loginModal.code.toString());
       if (info) {

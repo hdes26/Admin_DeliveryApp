@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class AdminPage extends StatefulWidget {
   @override
@@ -6,6 +7,12 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
+  @override
+  void initState() {
+    EasyLoading.dismiss();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,17 +32,20 @@ class _AdminPageState extends State<AdminPage> {
                 Center(
                     child: Image.asset(
                   'assets/img/logo.jpg',
-                  height: 200,
+                  height: 180,
                 )),
+                Center(
+                    child: Text('Delivery fast food',
+                        style:
+                            TextStyle(fontFamily: 'Chonburi', fontSize: 20))),
+                SizedBox(
+                  height: 7,
+                ),
                 Center(
                     child: Text(
                   'ADMIN',
                   style: TextStyle(fontFamily: 'Chonburi', fontSize: 20),
                 )),
-                Center(
-                    child: Text('Perrascamelo',
-                        style:
-                            TextStyle(fontFamily: 'Chonburi', fontSize: 20))),
               ],
             ),
           ),
@@ -169,11 +179,8 @@ class _AdminPageState extends State<AdminPage> {
                     onTap: () =>
                         {Navigator.pushNamed(context, 'historialPedidos')},
                   ),
-                  
                 ],
-                
               ),
-              
             ],
           ),
         ],

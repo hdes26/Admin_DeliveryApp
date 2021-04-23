@@ -12,6 +12,7 @@ import 'package:flutter_application_1/pages/platos_page.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/registroCategorias_page.dart';
 import 'package:flutter_application_1/registroPlato_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'pages/Pedidoscronologicos_page.dart';
 import 'pages/historialpedidos_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'MPLUSRounded1c'),
         debugShowCheckedModeBanner: false,
+        builder: EasyLoading.init(),
         initialRoute: 'login',
         routes: {
           'home': (BuildContext context) => AdminPage(),
