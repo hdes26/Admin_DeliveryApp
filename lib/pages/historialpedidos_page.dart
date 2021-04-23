@@ -36,10 +36,10 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
             padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
             child: Column(
               children: [
-                _formSearch(),
-                SizedBox(
-                  height: 20.0,
-                ),
+                //_formSearch(),
+               // SizedBox(
+               //   height: 20.0,
+                //),
                 _builderHistorial(context),
                 Divider(
                   color: Colors.grey,

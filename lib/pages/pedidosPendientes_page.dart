@@ -40,10 +40,10 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
             padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
             child: Column(
               children: [
-                _formSearch(),
-                SizedBox(
-                  height: 20.0,
-                ),
+             //   _formSearch(),
+               // SizedBox(
+                 // height: 20.0,
+               // ),
                 _builderPedidos(context),
                 Divider(
                   color: Colors.grey,
