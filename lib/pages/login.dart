@@ -76,6 +76,7 @@ class _LoginState extends State<Login> {
       if (info) {
         Navigator.pushNamed(context, 'loginVerificacion');
       } else {
+        EasyLoading.dismiss();
         _mostrarAlert(loginProvider.message);
       }
       print(info);

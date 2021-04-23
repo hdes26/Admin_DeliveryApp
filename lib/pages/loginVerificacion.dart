@@ -140,6 +140,7 @@ class _LoginVerificacionState extends State<LoginVerificacion> {
       if (info[0]) {
         Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
       } else {
+        EasyLoading.dismiss();
         _mostrarAlert("El codigo es Incorrecto");
       }
     }
