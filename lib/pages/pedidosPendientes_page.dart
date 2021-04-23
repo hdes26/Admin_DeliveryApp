@@ -44,7 +44,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
                 SizedBox(
                   height: 20.0,
                 ),
-                _builderCategorias(context),
+                _builderPedidos(context),
                 Divider(
                   color: Colors.grey,
                   height: 30.0,
@@ -85,7 +85,8 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id, dynamic pedido, String token, String nombre) {
+  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id,
+   dynamic pedido, String token, String nombre, String apellidos, int telefono) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -175,6 +176,8 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           //CORREGIR
           "token":token,
           "nombre":nombre,
+          "apellidos":apellidos,
+          "telefono":telefono,
         });
       },
     );
@@ -204,7 +207,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
   }
 
 
-  Widget _builderCategorias(BuildContext context) {
+  Widget _builderPedidos(BuildContext context) {
   final infoProvider = Provider.of<InfoProvider>(context);
   return FutureBuilder(
     future: PedidosProvider().getAll(infoProvider.token),
@@ -217,7 +220,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].usuarioId.nombre);
+            print(snapshot.data[index].usuarioId.numero);
             return 
               
                 _condicional(snapshot.data[index].numero,
@@ -227,7 +230,10 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
                   snapshot.data[index].id,
                   snapshot.data[index].platos,
                   infoProvider.token,
-                  snapshot.data[index].usuarioId.nombre);
+                  snapshot.data[index].usuarioId.nombre,
+                  snapshot.data[index].usuarioId.apellidos,
+                  snapshot.data[index].usuarioId.numero,
+                  );
               
             
           },
@@ -241,7 +247,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
   );
 }
 
-_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token, String nombre){
+_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token, String nombre, String apellidos, int telefono){
   return _pedido(
       numero,
       estado,
@@ -250,7 +256,10 @@ _condicional(int numero, String estado,int valor,List platos, String id,List tam
       id,
       tamano[0]["nombre"],
       token,
-      nombre);
+      nombre,
+      apellidos,
+      telefono,
+      );
 }
   
 }

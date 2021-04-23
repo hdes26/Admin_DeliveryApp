@@ -40,7 +40,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
                 SizedBox(
                   height: 20.0,
                 ),
-                _builderCategorias(context),
+                _builderHistorial(context),
                 Divider(
                   color: Colors.grey,
                   height: 30.0,
@@ -183,7 +183,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
   }
 
 
-  Widget _builderCategorias(BuildContext context) {
+  Widget _builderHistorial(BuildContext context) {
   final infoProvider = Provider.of<InfoProvider>(context);
   return FutureBuilder(
     future: CategoriaProvider().getAll(infoProvider.token),
