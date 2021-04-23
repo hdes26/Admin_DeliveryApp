@@ -117,7 +117,7 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
             ),
             Row(
               children: [
-                Text("Especificaciones", style: TextStyle(fontSize: 22.0),),
+                
               ],
             ),
             TextField(
@@ -169,9 +169,15 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 5)),
                 Text(
-                  parametros['nombre'], style: TextStyle(fontSize:18),),
+                  parametros['nombre']+" " + parametros['apellidos'], style: TextStyle(fontSize:18),),
             ],
-          )
+          ),
+          Row(children: [
+            Text('Numero :' ,style: TextStyle(fontSize: 15),
+            ),
+            Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 5)),
+            Text(parametros['telefono'].toString(), style: TextStyle(fontSize:18),)
+          ],)
             ],
         ),
       ),

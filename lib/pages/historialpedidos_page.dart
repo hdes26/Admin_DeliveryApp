@@ -36,11 +36,11 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
             padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
             child: Column(
               children: [
-                _formSearch(),
-                SizedBox(
-                  height: 20.0,
-                ),
-                _builderCategorias(context),
+                //_formSearch(),
+               // SizedBox(
+               //   height: 20.0,
+                //),
+                _builderHistorial(context),
                 Divider(
                   color: Colors.grey,
                   height: 30.0,
@@ -81,7 +81,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
     );
   }
 
-  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id, dynamic pedido) {
+  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id, dynamic pedido, String direccion) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -134,7 +134,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "calle 38B # 1c-72",
+              direccion,
               style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.black,
@@ -183,7 +183,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
   }
 
 
-  Widget _builderCategorias(BuildContext context) {
+  Widget _builderHistorial(BuildContext context) {
   final infoProvider = Provider.of<InfoProvider>(context);
   return FutureBuilder(
     future: CategoriaProvider().getAll(infoProvider.token),
@@ -196,7 +196,7 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].platos[0]["nombre"]);
+            print(snapshot.data[index].direccion.direccion);
             return 
               
                  _condicional(snapshot.data[index].numero,
@@ -205,7 +205,8 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
                   snapshot.data[index].platos,
                   snapshot.data[index].id,
                   snapshot.data[index].platos,
-                  infoProvider.token);
+                  infoProvider.token,
+                  snapshot.data[index].direccion.direccion);
               
             
           },
@@ -219,14 +220,15 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
   );
 }
 
-_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token ){
+_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token, String direccion ){
   return _pedido(
       numero,
       estado,
       valor,
       platos,
       id,
-      tamano[0]["nombre"]
+      tamano[0]["nombre"],
+      direccion,
        );
     
 }
