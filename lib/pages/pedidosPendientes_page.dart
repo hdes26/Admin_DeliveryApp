@@ -86,7 +86,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
   }
 
   Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id,
-   dynamic pedido, String token, String nombre, String apellidos, int telefono) {
+   dynamic pedido, String token, String nombre, String apellidos, int telefono, String direccion) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -143,7 +143,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "calle 38B # 1c-72",
+                direccion,
                 style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.black,
@@ -220,7 +220,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           itemCount: snapshot.data.length,
           padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].usuarioId.numero);
+            print(snapshot.data[index].direccion.direccion);
             return 
               
                 _condicional(snapshot.data[index].numero,
@@ -233,6 +233,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
                   snapshot.data[index].usuarioId.nombre,
                   snapshot.data[index].usuarioId.apellidos,
                   snapshot.data[index].usuarioId.numero,
+                  snapshot.data[index].direccion.direccion
                   );
               
             
@@ -247,7 +248,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
   );
 }
 
-_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token, String nombre, String apellidos, int telefono){
+_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token, String nombre, String apellidos, int telefono, String direccion){
   return _pedido(
       numero,
       estado,
@@ -259,6 +260,7 @@ _condicional(int numero, String estado,int valor,List platos, String id,List tam
       nombre,
       apellidos,
       telefono,
+      direccion
       );
 }
   
