@@ -15,11 +15,204 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _sizedScreen = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xEEEEEEEEEE),
-      body: Column(
+      body: ListView(children: [
+          Column(
         children: [
-          Container(
+          _logo(),
+          Column(
+            children: [
+              Container(
+                width: _sizedScreen.width * 0.7,
+                child:_pedidosPendientes()
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                width: _sizedScreen.width * 0.7,
+                child: _categorias(),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                width: _sizedScreen.width * 0.7,
+                child: _platos(),
+                )
+              
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                width: _sizedScreen.width*0.7,
+              child :_historialPedidos(),
+          )],
+          ),
+        ],
+      ),
+      ],),
+      
+    );
+  }
+
+
+  _pedidosPendientes(){
+    return
+     Row(
+       mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                          child: InkWell(
+                        child: Container(
+                          padding: EdgeInsets.all(7.0),
+                          margin: EdgeInsets.all(20.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Pedidos pendientes',
+                                style: TextStyle(
+                                    fontSize: 18.0, fontFamily: 'Chonburi'),
+                              ),
+                              Expanded(child: IconButton(
+                                alignment: Alignment.bottomRight,
+                                  icon: Icon(Icons.arrow_forward),
+                                  onPressed: () {},
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () =>
+                            {Navigator.pushNamed(context, 'pedidosPendientes')},
+                      ),
+                    ),
+                  ],
+                );
+  }
+  _categorias(){
+    return
+            Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                                          child: InkWell(
+                        child: Container(
+                          padding: EdgeInsets.all(7.0),
+                          margin: EdgeInsets.all(20.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Categorias                 ',
+                                style: TextStyle(
+                                    fontSize: 18.0, fontFamily: 'Chonburi'),
+                              ),
+                              Expanded(
+                                      child: IconButton(
+                                        alignment: Alignment.bottomRight,
+                                  icon: Icon(Icons.arrow_forward),
+                                  onPressed: () {},
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () => {Navigator.pushNamed(context, 'categorias')},
+                      ),
+                    ),
+                  ],
+                );
+  }
+  _platos(){
+    return 
+    Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                                      child: InkWell(
+                      child: Container(
+                        padding: EdgeInsets.all(7.0),
+                        margin: EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Platos                         ',
+                              style: TextStyle(
+                                  fontSize: 18.0, fontFamily: 'Chonburi'),
+                            ),
+                            Expanded(
+                                     child: IconButton(
+                                 alignment: Alignment.bottomRight,
+                                icon: Icon(Icons.arrow_forward),
+                                onPressed: () {},
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      onTap: () => {Navigator.pushNamed(context, 'platos')},
+                    ),
+                  ),
+                ],
+              );
+  }
+  _historialPedidos(){
+    return
+    Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                      child: InkWell(
+                      child: Container(
+                        padding: EdgeInsets.all(7.0),
+                        margin: EdgeInsets.all(20.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Historial pedidos       ',
+                              style: TextStyle(
+                                  fontSize: 18.0, fontFamily: 'Chonburi'),
+                            ),
+                            Expanded( child: IconButton(
+                              alignment: Alignment.bottomRight,
+                                icon: Icon(Icons.arrow_forward),
+                                onPressed: () {},
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      onTap: () =>
+                          {Navigator.pushNamed(context, 'historialPedidos')},
+                    ),
+                  ),
+                ],
+              );
+  }
+  _logo(){
+    return
+Container(
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -48,178 +241,8 @@ class _AdminPageState extends State<AdminPage> {
                 )),
               ],
             ),
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    child: Container(
-                      padding: EdgeInsets.all(7.0),
-                      margin: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Pedidos pendientes',
-                            style: TextStyle(
-                                fontSize: 18.0, fontFamily: 'Chonburi'),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.arrow_forward),
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ),
-                    onTap: () =>
-                        {Navigator.pushNamed(context, 'pedidosPendientes')},
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    child: Container(
-                      padding: EdgeInsets.all(7.0),
-                      margin: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Categorias                 ',
-                            style: TextStyle(
-                                fontSize: 18.0, fontFamily: 'Chonburi'),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.arrow_forward),
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ),
-                    onTap: () => {Navigator.pushNamed(context, 'categorias')},
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    child: Container(
-                      padding: EdgeInsets.all(7.0),
-                      margin: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Platos                         ',
-                            style: TextStyle(
-                                fontSize: 18.0, fontFamily: 'Chonburi'),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.arrow_forward),
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ),
-                    onTap: () => {Navigator.pushNamed(context, 'platos')},
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    child: Container(
-                      padding: EdgeInsets.all(7.0),
-                      margin: EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Historial pedidos       ',
-                            style: TextStyle(
-                                fontSize: 18.0, fontFamily: 'Chonburi'),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.arrow_forward),
-                            onPressed: () {},
-                          )
-                        ],
-                      ),
-                    ),
-                    onTap: () =>
-                        {Navigator.pushNamed(context, 'historialPedidos')},
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+          );
   }
 }
 
-/*Column(children: [  
-      
-      Row(        
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        
-        Text('Pedidos pendientes',
-        style: TextStyle(fontSize: 18.0, fontFamily:'Chonburi'),),
-        IconButton(icon: Icon(Icons.arrow_forward), onPressed: (){}),
-      ],),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Text('Categorias',
-        style: TextStyle(fontSize: 18.0, fontFamily:'Chonburi'),),
-        IconButton(icon: Icon(Icons.arrow_forward), onPressed: (){})
-      ],),
-      
-       Row(
-         mainAxisAlignment: MainAxisAlignment.center,
-         children: [
-        Text('Platos',
-        style: TextStyle(fontSize: 18.0, fontFamily:'Chonburi'),),
-        IconButton(icon: Icon(Icons.arrow_forward), onPressed: (){})
-      ],),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        Text('Historial de pedidos',
-        style: TextStyle(fontSize: 18.0, fontFamily:'Chonburi'),),
-        IconButton(icon: Icon(Icons.arrow_forward), onPressed: (){})
-      ],)
 
-    ],), */
