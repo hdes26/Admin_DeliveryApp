@@ -78,17 +78,20 @@ class _AdminPageState extends State<AdminPage> {
                           ),
                           child: Row(
                             children: [
-                              Text(
-                                'Pedidos pendientes',
-                                style: TextStyle(
-                                    fontSize: 18.0, fontFamily: 'Chonburi'),
+                              
+                              Expanded(
+                                  child: Text(
+                                  'Pedidos pendientes',
+                                  style: TextStyle(
+                                      fontSize: 18.0, fontFamily: 'Chonburi'),
+                                ),
                               ),
-                              Expanded(child: IconButton(
+                               IconButton(
                                 alignment: Alignment.bottomRight,
                                   icon: Icon(Icons.arrow_forward),
                                   onPressed: () {},
                                 ),
-                              )
+                              
                             ],
                           ),
                         ),
@@ -115,18 +118,19 @@ class _AdminPageState extends State<AdminPage> {
                           ),
                           child: Row(
                             children: [
-                              Text(
-                                'Categorias                 ',
-                                style: TextStyle(
-                                    fontSize: 18.0, fontFamily: 'Chonburi'),
-                              ),
                               Expanded(
-                                      child: IconButton(
+                                                              child: Text(
+                                  'Categorias                 ',
+                                  style: TextStyle(
+                                      fontSize: 18.0, fontFamily: 'Chonburi'),
+                                ),
+                              ),
+                               IconButton(
                                         alignment: Alignment.bottomRight,
                                   icon: Icon(Icons.arrow_forward),
                                   onPressed: () {},
                                 ),
-                              )
+                              
                             ],
                           ),
                         ),
@@ -152,18 +156,19 @@ class _AdminPageState extends State<AdminPage> {
                         ),
                         child: Row(
                           children: [
-                            Text(
-                              'Platos                         ',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontFamily: 'Chonburi'),
-                            ),
                             Expanded(
-                                     child: IconButton(
+                                child: Text(
+                                'Platos                         ',
+                                style: TextStyle(
+                                    fontSize: 18.0, fontFamily: 'Chonburi'),
+                              ),
+                            ),
+                             IconButton(
                                  alignment: Alignment.bottomRight,
                                 icon: Icon(Icons.arrow_forward),
                                 onPressed: () {},
                               ),
-                            )
+                            
                           ],
                         ),
                       ),
@@ -189,17 +194,19 @@ class _AdminPageState extends State<AdminPage> {
                         ),
                         child: Row(
                           children: [
-                            Text(
-                              'Historial pedidos       ',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontFamily: 'Chonburi'),
+                            Expanded(
+                                 child: Text(
+                                'Historial pedidos',
+                                style: TextStyle(
+                                    fontSize: 18.0, fontFamily: 'Chonburi'),
+                              ),
                             ),
-                            Expanded( child: IconButton(
+                             IconButton(
                               alignment: Alignment.bottomRight,
                                 icon: Icon(Icons.arrow_forward),
                                 onPressed: () {},
                               ),
-                            )
+                            
                           ],
                         ),
                       ),
