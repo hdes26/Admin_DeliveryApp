@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/models/platoModel.dart';
-import 'package:flutter_application_1/providers/platosProdiver.dart';
+
 import 'package:http/http.dart' as http;
 
 class PlatosProvider {
@@ -41,27 +41,19 @@ class PlatosProvider {
           'contentType': 'multipart/form-data',
           'x-access-token': token, // set content-length
         }));
-    print("repsonseeee ->>>>>>");
-    print(response.data['message']);
-    // final response = await http.post("POST", url, headers: {
-    //   'x-access-token': token,
-    // }, body: {});
-    // print(response.body);
-    // final decodeData = json.decode(response.body);
-    // final plato = new Plato.fromJsonMap(decodeData['plato']);
-    // print(plato);
+
     return response.data['message'];
   }
 
   delete(String id, String token) async {
     String endpoint = '/api/plato/remove/' + id;
-    print(endpoint);
+
     final url = Uri.https(_url, endpoint);
-    print(url);
+
     final response = await http.delete(url, headers: {'x-access-token': token});
-    print(response.body);
+
     final decodeData = json.decode(response.body);
-    print(decodeData);
+
     return decodeData['message'].toString();
   }
 
@@ -76,7 +68,7 @@ class PlatosProvider {
       "category_id": categoriaid,
       "ingredientes": platoParam.ingredientes,
     });
-    print(response.body);
+
     final decodeData = json.decode(response.body);
     // final plato = new Plato.fromJsonMap(decodeData['plato']);
 

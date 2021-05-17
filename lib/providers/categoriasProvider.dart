@@ -31,14 +31,7 @@ class CategoriaProvider {
       "nombre": nombre
     });
     final decodeData = json.decode(response.body);
-    print(decodeData['message']);
-    // final response = await http.post("POST", url, headers: {
-    //   'x-access-token': token,
-    // }, body: {});
-    // print(response.body);
-    // final decodeData = json.decode(response.body);
-    // final plato = new Plato.fromJsonMap(decodeData['plato']);
-    // print(plato);
+
     return decodeData['message'];
   }
 
@@ -60,7 +53,7 @@ class CategoriaProvider {
     }, body: {
       "nombre": nombre,
     });
-    print(response.body);
+
     final decodeData = json.decode(response.body);
 
     return decodeData["message"];

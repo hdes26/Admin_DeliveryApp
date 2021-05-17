@@ -16,10 +16,23 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'pages/Pedidoscronologicos_page.dart';
 import 'pages/historialpedidos_page.dart';
+import 'preferencias_usuario/preferencias.dart';
 
-class MyApp extends StatelessWidget {
+class MyAPP extends StatefulWidget {
+  @override
+  _MyAPPState createState() => _MyAPPState();
+}
+
+class _MyAPPState extends State<MyAPP> {
+  final _prefs = new PreferenciasUsuario();
+  String navegacion;
   @override
   Widget build(BuildContext context) {
+    if (_prefs.token != "") {
+      navegacion = "home";
+    } else {
+      navegacion = "login";
+    }
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -30,7 +43,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(fontFamily: 'MPLUSRounded1c'),
         debugShowCheckedModeBanner: false,
         builder: EasyLoading.init(),
-        initialRoute: 'login',
+        initialRoute: navegacion,
         routes: {
           'home': (BuildContext context) => AdminPage(),
           'pedidosPendientes': (BuildContext context) => PedidosPendientes(),

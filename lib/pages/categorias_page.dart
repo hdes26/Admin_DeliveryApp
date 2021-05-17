@@ -1,9 +1,5 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_application_1/models/categoriaModel.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/providers/categoriasProvider.dart';
@@ -75,33 +71,30 @@ class CategoryState extends State<Category> {
     );
   }
 
- 
-
-Widget _builderCategorias(BuildContext context) {
-  final infoProvider = Provider.of<InfoProvider>(context);
-  return FutureBuilder(
-    future: CategoriaProvider().getAll(infoProvider.token),
-    builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-      if (snapshot.hasData) {
-        // return Text("hola");
-        return ListView.builder(
-          physics: ScrollPhysics(parent: ScrollPhysics()),
-          shrinkWrap: true,
-          itemCount: snapshot.data.length,
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-          itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].id);
-            return _category(snapshot.data[index], context);
-          },
-        );
-      } else {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    },
-  );
-}
+  Widget _builderCategorias(BuildContext context) {
+    final infoProvider = Provider.of<InfoProvider>(context);
+    return FutureBuilder(
+      future: CategoriaProvider().getAll(infoProvider.token),
+      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+        if (snapshot.hasData) {
+          // return Text("hola");
+          return ListView.builder(
+            physics: ScrollPhysics(parent: ScrollPhysics()),
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            itemBuilder: (BuildContext context, int index) {
+              return _category(snapshot.data[index], context);
+            },
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
 
   Widget _button(BuildContext context) {
     return Padding(
@@ -123,4 +116,3 @@ Widget _builderCategorias(BuildContext context) {
     );
   }
 }
-

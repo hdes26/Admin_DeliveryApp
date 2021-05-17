@@ -1,14 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:flutter_application_1/models/categoriaModel.dart';
-import 'package:flutter_application_1/models/platoModel.dart';
 import 'package:flutter_application_1/providers/categoriasProvider.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
-import 'package:flutter_application_1/providers/platosProdiver.dart';
 import 'package:provider/provider.dart';
 
 class EditCategory extends StatefulWidget {

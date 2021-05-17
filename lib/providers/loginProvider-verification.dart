@@ -11,7 +11,6 @@ class LoginProvider {
     return _message;
   }
 
-  final infoProvider = new InfoProvider();
   final loginModal = new LoginModal();
   Future<bool> user(int number) async {
     String url =
@@ -24,11 +23,10 @@ class LoginProvider {
     loginModal.code = respDecode["codigo"];
 
     print("El Codigo es " + loginModal.code.toString());
-    //print(respDecode);
 
     if (loginModal.code == null) {
       _message = respDecode["message"];
-      print("El mensaje es :" + _message);
+      
       return false;
     } else {
       return true;

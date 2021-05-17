@@ -79,7 +79,6 @@ class _LoginState extends State<Login> {
         EasyLoading.dismiss();
         _mostrarAlert(loginProvider.message);
       }
-      print(info);
     }
   }
 

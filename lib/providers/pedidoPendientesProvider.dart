@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_application_1/models/pedidosPendientes.dart';
-import 'package:flutter_application_1/pages/pedidosPendientes_page.dart';
+
 import 'package:http/http.dart' as http;
 
 class PedidosProvider {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/preferencias_usuario/preferencias.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_application_1/models/loginModals.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
@@ -18,6 +19,7 @@ class _LoginVerificacionState extends State<LoginVerificacion> {
   final formKey = GlobalKey<FormState>();
   final loginModal = new LoginModal();
   final loginVerificationProvider = new LoginVerificationProvider();
+  final _prefs = new PreferenciasUsuario();
   @override
   void initState() {
     EasyLoading.dismiss();
@@ -130,14 +132,15 @@ class _LoginVerificacionState extends State<LoginVerificacion> {
     int number = infoProvider.number;
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      EasyLoading.show(
-          status: "Loading",
-          maskType: EasyLoadingMaskType.black,
-          dismissOnTap: false);
+
       var info = await loginVerificationProvider.verification(verify, number);
-      infoProvider.token = info[1];
-      print(infoProvider.token);
+      _prefs.token = info[1];
+      
       if (info[0]) {
+        EasyLoading.show(
+            status: "Loading",
+            maskType: EasyLoadingMaskType.black,
+            dismissOnTap: false);
         Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
       } else {
         EasyLoading.dismiss();

@@ -1,16 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_application_1/models/pedidosPendientes.dart';
 import 'package:flutter_application_1/providers/pedidoPendientesProvider.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-
-
 
 class PedidosPendientes extends StatefulWidget {
   PedidosPendientes({Key key}) : super(key: key);
@@ -24,7 +16,6 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -40,10 +31,10 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
             padding: EdgeInsets.fromLTRB(20, 15, 20, 0),
             child: Column(
               children: [
-             //   _formSearch(),
-               // SizedBox(
-                 // height: 20.0,
-               // ),
+                //   _formSearch(),
+                // SizedBox(
+                // height: 20.0,
+                // ),
                 _builderPedidos(context),
                 Divider(
                   color: Colors.grey,
@@ -57,7 +48,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-  Widget _formSearch() {
+  /* Widget _formSearch() {
     return Form(
       key: formKey,
       child: TextFormField(
@@ -84,9 +75,19 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
       ),
     );
   }
-
-  Widget _pedido(int numeroPedido, String estado, int valor, List plato, String id,
-   dynamic pedido, String token, String nombre, String apellidos, int telefono, String direccion) {
+ */
+  Widget _pedido(
+      int numeroPedido,
+      String estado,
+      int valor,
+      List plato,
+      String id,
+      dynamic pedido,
+      String token,
+      String nombre,
+      String apellidos,
+      int telefono,
+      String direccion) {
     Color colorBar;
     switch (estado) {
       case "enviado":
@@ -110,7 +111,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           Row(
             children: [
               Text(
-                "pedido # " +  numeroPedido.toString(),
+                "pedido # " + numeroPedido.toString(),
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               Expanded(child: SizedBox()),
@@ -142,12 +143,15 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                direccion,
-                style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+              Container(
+                width: 170,
+                child: Text(
+                  direccion,
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
               Text(
                 "Estado: " + estado,
@@ -159,32 +163,32 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
               SizedBox()
             ],
           ),
-               Divider(
-        color: Colors.black,
-        height: 27,
-        thickness: 1.1,
-      ),
+          Divider(
+            color: Colors.black,
+            height: 27,
+            thickness: 1.1,
+          ),
         ],
       ),
       onTap: () {
-        Navigator.pushNamed(context, 'pedidoscronologicos' ,arguments: {
-          "total":valor.toString(),
-          "direccion":"calle 38B # 1c-72",
-          "plato":pedido,
-          "estado":estado.toString(),
-          "id":id.toString(),
+        Navigator.pushNamed(context, 'pedidoscronologicos', arguments: {
+          "total": valor.toString(),
+          "direccion": direccion,
+          "plato": pedido,
+          "estado": estado.toString(),
+          "id": id.toString(),
           //CORREGIR
-          "token":token,
-          "nombre":nombre,
-          "apellidos":apellidos,
-          "telefono":telefono,
+          "token": token,
+          "nombre": nombre,
+          "apellidos": apellidos,
+          "telefono": telefono,
         });
       },
     );
   }
 
-   Widget _listPedido(List platos) {
-     return Expanded(
+  Widget _listPedido(List platos) {
+    return Expanded(
       child: Container(
         child: ListView.builder(
           itemCount: platos.length,
@@ -206,24 +210,22 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
     );
   }
 
-
   Widget _builderPedidos(BuildContext context) {
-  final infoProvider = Provider.of<InfoProvider>(context);
-  return FutureBuilder(
-    future: PedidosProvider().getAll(infoProvider.token),
-    builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-      if (snapshot.hasData) {
-        // return Text("hola");
-        return ListView.builder(
-          physics: ScrollPhysics(parent: ScrollPhysics()),
-          shrinkWrap: true,
-          itemCount: snapshot.data.length,
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-          itemBuilder: (BuildContext context, int index) {
-            print(snapshot.data[index].direccion.direccion);
-            return 
+    final infoProvider = Provider.of<InfoProvider>(context);
+    return FutureBuilder(
+      future: PedidosProvider().getAll(infoProvider.token),
+      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+        if (snapshot.hasData) {
+          // return Text("hola");
+          return ListView.builder(
+            physics: ScrollPhysics(parent: ScrollPhysics()),
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+            itemBuilder: (BuildContext context, int index) {
               
-                _condicional(snapshot.data[index].numero,
+              return _condicional(
+                  snapshot.data[index].numero,
                   snapshot.data[index].estado,
                   snapshot.data[index].valor,
                   snapshot.data[index].platos,
@@ -233,35 +235,31 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
                   snapshot.data[index].usuarioId.nombre,
                   snapshot.data[index].usuarioId.apellidos,
                   snapshot.data[index].usuarioId.numero,
-                  snapshot.data[index].direccion.direccion
-                  );
-              
-            
-          },
-        );
-      } else {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    },
-  );
-}
+                  snapshot.data[index].direccion.direccion);
+            },
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
 
-_condicional(int numero, String estado,int valor,List platos, String id,List tamano, String token, String nombre, String apellidos, int telefono, String direccion){
-  return _pedido(
-      numero,
-      estado,
-      valor,
-      platos,
-      id,
-      tamano[0]["nombre"],
-      token,
-      nombre,
-      apellidos,
-      telefono,
-      direccion
-      );
-}
-  
+  _condicional(
+      int numero,
+      String estado,
+      int valor,
+      List platos,
+      String id,
+      List tamano,
+      String token,
+      String nombre,
+      String apellidos,
+      int telefono,
+      String direccion) {
+    return _pedido(numero, estado, valor, platos, id, tamano[0]["nombre"],
+        token, nombre, apellidos, telefono, direccion);
+  }
 }

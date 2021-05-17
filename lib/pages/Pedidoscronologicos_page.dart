@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_application_1/models/pedidosPendientes.dart';
-import 'package:flutter_application_1/providers/pedidoPendientesProvider.dart';
+
 import 'package:flutter_application_1/providers/historialpedidosProvider.dart';
-import 'package:provider/provider.dart';
+
 import 'package:flutter/services.dart';
 
 class PedidosCronologicos extends StatefulWidget {
@@ -18,12 +15,11 @@ class PedidosCronologicos extends StatefulWidget {
 }
 
 class _PedidosCronologicosState extends State<PedidosCronologicos> {
- String estados = "preparando";
+  String estados = "preparando";
   @override
   Widget build(BuildContext context) {
     Map parametros = ModalRoute.of(context).settings.arguments;
-    
-    
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -105,20 +101,20 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
 
             Row(
               children: [
-                Text(parametros['plato'], style: TextStyle(fontSize: 20.0),),
+                Text(
+                  parametros['plato'],
+                  style: TextStyle(fontSize: 20.0),
+                ),
               ],
             ),
-           
-           
-                        Divider(
+
+            Divider(
               thickness: 2,
               color: Colors.black,
               height: 50.0,
             ),
             Row(
-              children: [
-                
-              ],
+              children: [],
             ),
             TextField(
               keyboardType: TextInputType.multiline,
@@ -129,61 +125,72 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                 hintText: 'Perro sin cebolla, hamburguesa sin pan xd',
               ),
             ),
-            Row(children: [
-              Text('Estado: ',style:TextStyle(fontSize: 17),),
-              DropdownButton(
-              value: estados,
-              items: [
-                DropdownMenuItem(
-                  child: Text('preparando'),
-                  value: "preparando",
-                ),
-                DropdownMenuItem(
-                  child: Text("enviado"),
-                  value: "enviado",
-                ),
-                DropdownMenuItem(
-                  child: Text("por confirmar"),
-                  value: "por confirmar"
-                ),
-                
-              ],
-              onChanged: (value) {
-                estados=value;
-                setState(() async{            
-          final response =
-            await CategoriaProvider().update(parametros["id"], estados, parametros["token"]);
-          await _mostrarAlert(response);
-          Navigator.pop(context);
-                });
-              
-              })
-              ]
-             ,),
-             
-          Row(
+            Row(
               children: [
-              Padding(padding: EdgeInsets.fromLTRB(0, 40, 0, 5)),
-              Text(
-                'Pedidor por :',style: TextStyle(fontSize: 15),
+                Text(
+                  'Estado: ',
+                  style: TextStyle(fontSize: 17),
+                ),
+                DropdownButton(
+                    value: estados,
+                    items: [
+                      DropdownMenuItem(
+                        child: Text('preparando'),
+                        value: "preparando",
+                      ),
+                      DropdownMenuItem(
+                        child: Text("enviado"),
+                        value: "enviado",
+                      ),
+                      DropdownMenuItem(
+                          child: Text("por confirmar"), value: "por confirmar"),
+                    ],
+                    onChanged: (value) {
+                      estados = value;
+                      setState(() async {
+                        final response = await CategoriaProvider().update(
+                            parametros["id"], estados, parametros["token"]);
+                        await _mostrarAlert(response);
+                        Navigator.pop(context);
+                      });
+                    })
+              ],
+            ),
+
+            Row(
+              children: [
+                Padding(padding: EdgeInsets.fromLTRB(0, 40, 0, 5)),
+                Text(
+                  'Pedidor por :',
+                  style: TextStyle(fontSize: 15),
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 5)),
                 Text(
-                  parametros['nombre']+" " + parametros['apellidos'], style: TextStyle(fontSize:18),),
-            ],
-          ),
-          Row(children: [
-            Text('Numero :' ,style: TextStyle(fontSize: 15),
+                  parametros['nombre'] + " " + parametros['apellidos'],
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
             ),
-            Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 5)),
-            Text(parametros['telefono'].toString(), style: TextStyle(fontSize:18),)
-          ],)
-            ],
+            Row(
+              children: [
+                Text(
+                  'Numero :',
+                  style: TextStyle(fontSize: 15),
+                ),
+                Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 5)),
+                Text(
+                  parametros['telefono'].toString(),
+                  style: TextStyle(fontSize: 18),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );
   }
-   Future _mostrarAlert(String message) {
+
+  Future _mostrarAlert(String message) {
     return showDialog(
         useSafeArea: false,
         context: context,
@@ -203,4 +210,3 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
         });
   }
 }
-

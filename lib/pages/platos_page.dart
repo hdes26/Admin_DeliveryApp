@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/platoModel.dart';
-import 'package:flutter_application_1/providers/categoriasProvider.dart';
+
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/providers/platosProdiver.dart';
 import 'package:provider/provider.dart';

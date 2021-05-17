@@ -170,7 +170,6 @@ class _EditPlatoState extends State<EditPlato> {
             }).toList(),
             onChanged: (newVal) {
               setState(() {
-                print(newVal);
                 seleccion = newVal;
               });
             },

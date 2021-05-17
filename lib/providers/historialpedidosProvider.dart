@@ -30,7 +30,7 @@ class CategoriaProvider {
     }, body: {
       "estado": estado,
     });
-    print(response.body);
+    
     final decodeData = json.decode(response.body);
 
     return decodeData["message"];

@@ -1,11 +1,8 @@
-import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:flutter_application_1/models/categoriaModel.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
-import 'package:flutter_application_1/providers/categoriasProvider.dart';
 import 'package:provider/provider.dart';
 
 
