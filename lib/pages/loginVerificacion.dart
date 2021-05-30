@@ -135,10 +135,10 @@ class _LoginVerificacionState extends State<LoginVerificacion> {
 
       var info = await loginVerificationProvider.verification(verify, number);
       _prefs.token = info[1];
-      
+
       if (info[0]) {
         EasyLoading.show(
-            status: "Loading",
+            status: "Loading...",
             maskType: EasyLoadingMaskType.black,
             dismissOnTap: false);
         Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);

@@ -12,7 +12,7 @@ class LoginProvider {
   }
 
   final loginModal = new LoginModal();
-  Future<bool> user(int number) async {
+  Future<List> user(int number) async {
     String url =
         "https://backend-delivery.azurewebsites.net/api/auth/admin/login";
 
@@ -26,10 +26,10 @@ class LoginProvider {
 
     if (loginModal.code == null) {
       _message = respDecode["message"];
-      
-      return false;
+
+      return [false];
     } else {
-      return true;
+      return [true, loginModal.code];
     }
   }
 }
