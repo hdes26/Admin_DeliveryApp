@@ -61,6 +61,14 @@ class _AdminPageState extends State<AdminPage> {
                   )
                 ],
               ),
+              Column(
+                children: [
+                  Container(
+                    width: _sizedScreen.width * 0.7,
+                    child: _cerrarSesion(),
+                  )
+                ],
+              ),
             ],
           ),
         ],
@@ -206,6 +214,46 @@ class _AdminPageState extends State<AdminPage> {
               ),
             ),
             onTap: () => {Navigator.pushNamed(context, 'historialPedidos')},
+          ),
+        ),
+      ],
+    );
+  }
+
+  _cerrarSesion() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: InkWell(
+            child: Container(
+              padding: EdgeInsets.all(7.0),
+              margin: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Cerrar sesión',
+                      style: TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                    ),
+                  ),
+                  IconButton(
+                    alignment: Alignment.bottomRight,
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            onTap: () => {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('login', (route) => false),
+              _prefs.token = "",
+            },
           ),
         ),
       ],

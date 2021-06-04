@@ -112,12 +112,14 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            Text(
-              "Estado: " + estado,
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+            Expanded(
+              child: Text(
+                "Estado: " + estado,
+                style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
             ),
             SizedBox()
           ],

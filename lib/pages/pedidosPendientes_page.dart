@@ -153,12 +153,14 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Text(
-                "Estado: " + estado,
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              Expanded(
+                child: Text(
+                  "Estado: " + estado,
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
               ),
               SizedBox()
             ],
@@ -223,7 +225,6 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
             itemCount: snapshot.data.length,
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
             itemBuilder: (BuildContext context, int index) {
-              
               return _condicional(
                   snapshot.data[index].numero,
                   snapshot.data[index].estado,
