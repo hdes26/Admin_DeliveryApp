@@ -94,7 +94,8 @@ class _LoginState extends State<Login> {
           status: "Loading...",
           maskType: EasyLoadingMaskType.black,
           dismissOnTap: false);
-      List info = await loginProvider.user(infoProvider.number);
+          Navigator.pushNamed(context, 'home');
+      /*List info = await loginProvider.user(infoProvider.number);
       print("Codigo " + loginModal.code.toString());
       if (info[0]) {
         //_showNotication(info[1].toString());
@@ -102,7 +103,7 @@ class _LoginState extends State<Login> {
       } else {
         EasyLoading.dismiss();
         _mostrarAlert(loginProvider.message);
-      }
+      }*/
     }
   }
 

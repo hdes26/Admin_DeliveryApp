@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/admin_page.dart';
 import 'package:flutter_application_1/pages/categorias_page.dart';
+import 'package:flutter_application_1/pages/domiciliary.dart';
 import 'package:flutter_application_1/pages/editCategory_page.dart';
 import 'package:flutter_application_1/pages/editCategory_page2.dart';
 import 'package:flutter_application_1/pages/editPlato_page.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'pages/Pedidoscronologicos_page.dart';
 import 'pages/historialpedidos_page.dart';
+import 'pages/registerDomiciliary.dart';
 import 'preferencias_usuario/preferencias.dart';
 
 class MyAPP extends StatefulWidget {
@@ -60,6 +62,8 @@ class _MyAPPState extends State<MyAPP> {
           'registroCategoria': (BuildContext context) => RegistroCategorias(),
           'eliminarcategoria': (BuildContext context) => Eliminarcategoria(),
           'editarcategoria2': (BuildContext context) => Editarcategoria2(),
+          'domiciliary':(BuildContext context)=>Domiciliary(),
+          'registerDomiciliary':(BuildContext context)=>RegisterDomicilairy(),
         },
       ),
     );

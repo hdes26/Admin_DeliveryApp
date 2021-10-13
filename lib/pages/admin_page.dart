@@ -34,14 +34,14 @@ class _AdminPageState extends State<AdminPage> {
                 children: [
                   Container(
                       width: _sizedScreen.width * 0.7,
-                      child: _pedidosPendientes()),
+                      child: _butttonHome('Pedidos pendientes','pedidosPendientes')),
                 ],
               ),
               Column(
                 children: [
                   Container(
                     width: _sizedScreen.width * 0.7,
-                    child: _categorias(),
+                    child: _butttonHome('Categorias','categorias'),
                   ),
                 ],
               ),
@@ -49,7 +49,7 @@ class _AdminPageState extends State<AdminPage> {
                 children: [
                   Container(
                     width: _sizedScreen.width * 0.7,
-                    child: _platos(),
+                    child: _butttonHome('Platos','platos'),
                   )
                 ],
               ),
@@ -57,7 +57,15 @@ class _AdminPageState extends State<AdminPage> {
                 children: [
                   Container(
                     width: _sizedScreen.width * 0.7,
-                    child: _historialPedidos(),
+                    child: _butttonHome('Historial Pedidos','historialPedidos'),
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  Container(
+                    width: _sizedScreen.width * 0.7,
+                    child: _butttonHome('Domiciliarios','domiciliary'),
                   )
                 ],
               ),
@@ -76,149 +84,7 @@ class _AdminPageState extends State<AdminPage> {
     );
   }
 
-  _pedidosPendientes() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: InkWell(
-            child: Container(
-              padding: EdgeInsets.all(7.0),
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Pedidos pendientes',
-                      style: TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                    ),
-                  ),
-                  IconButton(
-                    alignment: Alignment.bottomRight,
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            onTap: () => {Navigator.pushNamed(context, 'pedidosPendientes')},
-          ),
-        ),
-      ],
-    );
-  }
-
-  _categorias() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: InkWell(
-            child: Container(
-              padding: EdgeInsets.all(7.0),
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Categorias                 ',
-                      style: TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                    ),
-                  ),
-                  IconButton(
-                    alignment: Alignment.bottomRight,
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            onTap: () => {Navigator.pushNamed(context, 'categorias')},
-          ),
-        ),
-      ],
-    );
-  }
-
-  _platos() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: InkWell(
-            child: Container(
-              padding: EdgeInsets.all(7.0),
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Platos                         ',
-                      style: TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                    ),
-                  ),
-                  IconButton(
-                    alignment: Alignment.bottomRight,
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            onTap: () => {Navigator.pushNamed(context, 'platos')},
-          ),
-        ),
-      ],
-    );
-  }
-
-  _historialPedidos() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: InkWell(
-            child: Container(
-              padding: EdgeInsets.all(7.0),
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Historial pedidos',
-                      style: TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
-                    ),
-                  ),
-                  IconButton(
-                    alignment: Alignment.bottomRight,
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-            onTap: () => {Navigator.pushNamed(context, 'historialPedidos')},
-          ),
-        ),
-      ],
-    );
-  }
+  
 
   _cerrarSesion() {
     return Row(
@@ -291,4 +157,40 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
+  _butttonHome(String option,String navigation) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: InkWell(
+            child: Container(
+              padding: EdgeInsets.all(7.0),
+              margin: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      option,
+                      style: TextStyle(fontSize: 18.0, fontFamily: 'Chonburi'),
+                    ),
+                  ),
+                  IconButton(
+                    alignment: Alignment.bottomRight,
+                    icon: Icon(Icons.arrow_forward),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            onTap: () => {Navigator.pushNamed(context, navigation)},
+          ),
+        ),
+      ],
+    );
+  }
+
 }
