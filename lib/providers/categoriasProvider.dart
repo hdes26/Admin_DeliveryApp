@@ -4,7 +4,7 @@ import 'package:flutter_application_1/models/categoriaModel.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriaProvider {
-  String _url = 'backend-delivery.azurewebsites.net';
+  String _url = 'backend-delivery2.azurewebsites.net';
 
   Future<List<Categoria>> getAll(String token) async {
     final url = Uri.https(_url, '/api/category/');

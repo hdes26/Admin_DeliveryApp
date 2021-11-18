@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class InfoProvider with ChangeNotifier {
-  String _token = 'hola';
+  String _token = '';
   int _number;
 
   get number {

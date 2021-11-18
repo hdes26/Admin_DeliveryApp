@@ -5,7 +5,7 @@ import 'package:flutter_application_1/models/loginModals.dart';
 import 'package:flutter_application_1/providers/loginProvider-verification.dart';
 import 'package:flutter_application_1/providers/infoProvider.dart';
 import 'package:flutter_application_1/utils/util.dart' as utils;
-//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -24,19 +24,19 @@ class _LoginState extends State<Login> {
     EasyLoading.dismiss();
     super.initState();
     //Iniciar notificacion
-    /*  var androidInitialize = new AndroidInitializationSettings('logo');
+     var androidInitialize = new AndroidInitializationSettings('logo');
     var iOsInitialize = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(
         android: androidInitialize, iOS: iOsInitialize);
     localNotification = new FlutterLocalNotificationsPlugin();
-    localNotification.initialize(initializationSettings); */
+    localNotification.initialize(initializationSettings); 
   }
 
-  //FlutterLocalNotificationsPlugin localNotification;
+  FlutterLocalNotificationsPlugin localNotification;
   //llamar notificacion
-  /* Future _showNotication(String code) async {
+  Future _showNotication(String code) async {
     var androidDetails = new AndroidNotificationDetails("id de la notificacion",
-        "nombre de la notificacion", "descripcion de la notificacion",
+        "nombre de la notificacion",
         importance: Importance.max, priority: Priority.high);
 
     var iosDetails = new IOSNotificationDetails();
@@ -45,9 +45,9 @@ class _LoginState extends State<Login> {
 
     await localNotification.show(0, "Codigo de verificacion",
         "El codigo de verificacion es $code", generalNotificationDetails);
-  } */
+  } 
 
-  // InfoProvider infoProvider;
+  InfoProvider infoProvider;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,16 +94,16 @@ class _LoginState extends State<Login> {
           status: "Loading...",
           maskType: EasyLoadingMaskType.black,
           dismissOnTap: false);
-          Navigator.pushNamed(context, 'home');
-      /*List info = await loginProvider.user(infoProvider.number);
+          //Navigator.pushNamed(context, 'home');
+      List info = await loginProvider.user(infoProvider.number);
       print("Codigo " + loginModal.code.toString());
       if (info[0]) {
-        //_showNotication(info[1].toString());
+        _showNotication(info[1].toString());
         Navigator.pushNamed(context, 'loginVerificacion');
       } else {
         EasyLoading.dismiss();
         _mostrarAlert(loginProvider.message);
-      }*/
+      }
     }
   }
 

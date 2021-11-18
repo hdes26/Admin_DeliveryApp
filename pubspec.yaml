@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_easyloading: ^3.0.0
   #flutter_local_notifications: ^5.0.0+4
+  flutter_local_notifications: ^9.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
