@@ -183,6 +183,7 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                         final response = await CategoriaProvider().update(
                           parametros["id"], estados, parametros["token"]);
                           await _mostrarAlert(response);
+                          Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
                           
                       }else if(estados == 'enviado'&&isDomiciliaryActive==false){
                         await _mostrarAlert('No se ha asignado domiciliario');
