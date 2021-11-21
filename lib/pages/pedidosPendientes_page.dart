@@ -179,11 +179,13 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
           "plato": pedido,
           "estado": estado.toString(),
           "id": id.toString(),
+          "pedidoNumero": numeroPedido.toString(),
           //CORREGIR
           "token": token,
           "nombre": nombre,
           "apellidos": apellidos,
           "telefono": telefono,
+          
         });
       },
     );

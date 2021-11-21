@@ -74,7 +74,7 @@ class Domiciliario {
   Domiciliario.fromToList(List<dynamic> domiciliario){
 
     for (var item in domiciliario) {
-      print('===item=='+item.toString());
+      
       final empleado = new Domiciliarios.fromJonMap(item);
       domi.add(empleado);
       

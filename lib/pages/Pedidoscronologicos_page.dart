@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/domiciliarioModel.dart';
+import 'package:flutter_application_1/providers/domicliariosProvider.dart';
 
 import 'package:flutter_application_1/providers/historialpedidosProvider.dart';
 
@@ -15,11 +17,25 @@ class PedidosCronologicos extends StatefulWidget {
 }
 
 class _PedidosCronologicosState extends State<PedidosCronologicos> {
-  String estados = "preparando";
+  String estados='por confirmar';
+  final domiciliarioProvider = new DomiciliarioProvider();
+  bool isButtonActive = false;
+  bool isDomiciliaryActive=false;
+
+  Domiciliarios domiciliaryAssingned =
+      new Domiciliarios(nombre: '', apellidos: '');
+
   @override
   Widget build(BuildContext context) {
     Map parametros = ModalRoute.of(context).settings.arguments;
-
+    if(parametros['estado']!='por confirmar'){
+      estados=parametros['estado'];
+    }
+    
+    if (estados == 'preparando') {
+      isButtonActive = true;
+    }
+    
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.grey),
@@ -27,7 +43,7 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Pedidos #1",
+          "Pedidos #" + parametros['pedidoNumero'],
           style: TextStyle(color: Colors.grey),
         ),
       ),
@@ -145,18 +161,84 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                       DropdownMenuItem(
                           child: Text("por confirmar"), value: "por confirmar"),
                     ],
-                    onChanged: (value) {
-                      estados = value;
-                      setState(() async {
-                        final response = await CategoriaProvider().update(
-                            parametros["id"], estados, parametros["token"]);
-                        await _mostrarAlert(response);
-                        Navigator.pop(context);
+                    onChanged: (value) async {
+                      setState(() {
+                        estados = value;
                       });
+
+                      
+                      
+                      
+                      if(estados=='por confirmar'){
+                        final response = await CategoriaProvider().update(
+                          parametros["id"], estados, parametros["token"]);
+                          await _mostrarAlert(response);
+                      }else if(estados=='preparando'){
+                          isButtonActive = true;
+                         final response = await CategoriaProvider().update(
+                          parametros["id"], estados, parametros["token"]);
+                          await _mostrarAlert(response);
+                          
+                      }else if(estados == 'enviado'&&isDomiciliaryActive){
+                        final response = await CategoriaProvider().update(
+                          parametros["id"], estados, parametros["token"]);
+                          await _mostrarAlert(response);
+                          
+                      }else if(estados == 'enviado'&&isDomiciliaryActive==false){
+                        await _mostrarAlert('No se ha asignado domiciliario');
+                      }
+
                     })
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Asignar Domiciliario :',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      domiciliaryAssingned.nombre +
+                          ' ' +
+                          domiciliaryAssingned.apellidos,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        onSurface: Colors.redAccent, primary: Colors.red),
+                    child: Text(
+                      'Asignar',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: isButtonActive
+                        ? () async {
+                            setState(() {});
+                            if (estados.trim() == 'preparando') {
+                              final info = await domiciliarioProvider
+                                  .domiciliaryAvailable(parametros['token']);
 
+                              if (info[0].id.length != 0) {
+                                
+                                await showDomiliciary(info, parametros);
+                                
+                              } else {
+                                isDomiciliaryActive=false;
+                                _mostrarAlert(
+                                    'no hay domiciliarios disponibles');
+                              }
+                            } else {
+                              
+                              return null;
+                            }
+                          }
+                        : null)
+              ],
+            ),
             Row(
               children: [
                 Padding(padding: EdgeInsets.fromLTRB(0, 40, 0, 5)),
@@ -188,6 +270,58 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
         ),
       ),
     );
+  }
+
+  Future<void> showDomiliciary(
+      List<Domiciliarios> domiciliarios, Map parametros) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              height: 300,
+              padding: EdgeInsets.all(20),
+              child: ListView.separated(
+                itemCount: domiciliarios.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    child: Container(
+                      height: 50,
+                      padding: EdgeInsets.only(top: 17, bottom: 5),
+                      child: Text(domiciliarios[index].nombre +
+                          " " +
+                          domiciliarios[index].apellidos),
+                    ),
+                    onTap: () async {
+                      setState(() {
+                        domiciliaryAssingned = domiciliarios[index];
+                      });
+                      final info2 =
+                          await domiciliarioProvider.assingDomiciliary(
+                              parametros['token'],
+                              parametros['id'],
+                              domiciliaryAssingned.id);
+                      if (info2 == 'se asgino correctamente el domiciliario') {
+                        await _mostrarAlert(info2);
+                        isDomiciliaryActive=true;
+                      } else {
+                        //Navigator.of(context).pushReplacementNamed('pedidosPendientes');
+                        await _mostrarAlert(info2);
+                        isDomiciliaryActive=false;
+                        
+                      }
+                    
+                      Navigator.of(context).pop();
+                    },
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Divider(
+                  thickness: 1,
+                  endIndent: 10,
+                  height: 1,
+                ),
+              ));
+        });
   }
 
   Future _mostrarAlert(String message) {
