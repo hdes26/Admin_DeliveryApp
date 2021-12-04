@@ -155,8 +155,8 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                         value: "preparando",
                       ),
                       DropdownMenuItem(
-                        child: Text("enviado"),
-                        value: "enviado",
+                        child: Text("Enviado"),
+                        value: "Enviado",
                       ),
                       DropdownMenuItem(
                           child: Text("por confirmar"), value: "por confirmar"),
@@ -179,13 +179,13 @@ class _PedidosCronologicosState extends State<PedidosCronologicos> {
                           parametros["id"], estados, parametros["token"]);
                           await _mostrarAlert(response);
                           
-                      }else if(estados == 'enviado'&&isDomiciliaryActive){
+                      }else if(estados == 'Enviado'&&isDomiciliaryActive){
                         final response = await CategoriaProvider().update(
                           parametros["id"], estados, parametros["token"]);
                           await _mostrarAlert(response);
                           Navigator.of(context).pushNamedAndRemoveUntil('home', (route) => false);
                           
-                      }else if(estados == 'enviado'&&isDomiciliaryActive==false){
+                      }else if(estados == 'Enviado'&&isDomiciliaryActive==false){
                         await _mostrarAlert('No se ha asignado domiciliario');
                       }
 

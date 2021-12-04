@@ -53,13 +53,13 @@ class _HistorialPedidosState extends State<HistorialPedidos> {
       String id, dynamic pedido, String direccion) {
     Color colorBar;
     switch (estado) {
-      case "enviado":
+      case "Enviado":
         colorBar = Colors.blue;
         break;
-      case "enviado":
+      case "Enviado":
         colorBar = Colors.blue;
         break;
-      case "enviado":
+      case "Enviado":
         colorBar = Colors.blue;
         break;
       default:

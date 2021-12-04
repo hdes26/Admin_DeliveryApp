@@ -90,7 +90,7 @@ class _PedidosPendientesState extends State<PedidosPendientes> {
       String direccion) {
     Color colorBar;
     switch (estado) {
-      case "enviado":
+      case "Enviado":
         colorBar = Colors.blue;
         break;
       case "por confirmar":
